@@ -19,6 +19,22 @@
     }
   }
 
+  #subtitleDisplay {
+    font-size: 1em;
+
+    div {
+      margin: 15px;
+    }
+
+    p {
+      margin: 0;
+    }
+    #subtitleText_present {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+  }
+
   button#PlayBtn {
     margin: 25px;
     min-width: 150px;
@@ -26,13 +42,13 @@
   }
   #backward1sec-btn,
   #forward1sec-btn {
-      margin: auto 25px;
+    margin: auto 25px;
     width: 50px;
     height: 50px;
   }
 
-  #inputTime{
-      width: 30%;
-      margin: auto;
+  #inputTime {
+    width: 30%;
+    margin: auto;
   }
 }

@@ -9,10 +9,14 @@ export default function SubtitlePlayer() {
   let videoTitle = "The Queen's Gambit";
   const englishSubtitleList = useRef([]);
   const chineseSubtitleList = useRef([]);
+  const [englishSubtitle_previous, setEnglishSubtitle_previous] = useState("");
+  const [chineseSubtitle_previous, setChineseSubtitle_previous] = useState("");
   const [englishSubtitle_present, setEnglishSubtitle_present] =
     useState("Loading ... ");
   const [chineseSubtitle_present, setChineseSubtitle_present] =
     useState("加载中 ... ");
+  const [englishSubtitle_next, setEnglishSubtitle_next] = useState("");
+  const [chineseSubtitle_next, setChineseSubtitle_next] = useState("");
   const [inputTime, setInputTime] = useState();
   const totalDuration = 3493;
 
@@ -52,29 +56,51 @@ export default function SubtitlePlayer() {
 
     // TODO
     setInputTime("");
-    
+
     return () => {
       timerRef.pause();
     };
   }, [isPlaying]);
 
   useEffect(() => {
-    let eSubtitleToDisplay = englishSubtitleList.current.find(
-      (subtitle) =>
-        subtitle.begin > Math.trunc(playerTime * 1000) &&
+    let eIndexToDisplay = englishSubtitleList.current.findIndex((subtitle) => {
+      return (
+        subtitle.begin < Math.trunc(playerTime * 1000) &&
         subtitle.end > Math.trunc(playerTime * 1000)
-    );
-    if (eSubtitleToDisplay) {
-      setEnglishSubtitle_present(eSubtitleToDisplay.value);
+      );
+    });
+    if (eIndexToDisplay >= 0) {
+      setEnglishSubtitle_previous(
+        englishSubtitleList.current[eIndexToDisplay - 1]?.value
+      );
+      setEnglishSubtitle_present(
+        englishSubtitleList.current[eIndexToDisplay].value
+      );
+      setEnglishSubtitle_next(
+        englishSubtitleList.current[eIndexToDisplay + 1].value
+      );
+    } else {
+      setEnglishSubtitle_present("");
     }
 
-    let cSubtitleToDisplay = chineseSubtitleList.current.find(
-      (subtitle) =>
-        subtitle.begin > Math.trunc(playerTime * 1000) &&
+    let cIndexToDisplay = chineseSubtitleList.current.findIndex((subtitle) => {
+      return (
+        subtitle.begin < Math.trunc(playerTime * 1000) &&
         subtitle.end > Math.trunc(playerTime * 1000)
-    );
-    if (cSubtitleToDisplay) {
-      setChineseSubtitle_present(cSubtitleToDisplay.value);
+      );
+    });
+    if (cIndexToDisplay >= 0) {
+      setChineseSubtitle_previous(
+        chineseSubtitleList.current[cIndexToDisplay -1]?.value
+      );
+      setChineseSubtitle_present(
+        chineseSubtitleList.current[cIndexToDisplay].value
+      );
+      setChineseSubtitle_next(
+        chineseSubtitleList.current[cIndexToDisplay + 1].value
+      );
+    } else {
+      setChineseSubtitle_present("");
     }
   }, [playerTime]);
 
@@ -116,8 +142,16 @@ export default function SubtitlePlayer() {
         <div className="row align-items-center h-50">
           <div id="subtitleDisplay">
             <div id="subtitleText_previous">
+              <p>{englishSubtitle_previous}</p>
+              <p>{chineseSubtitle_previous}</p>
+            </div>
+            <div id="subtitleText_present">
               <p>{englishSubtitle_present}</p>
               <p>{chineseSubtitle_present}</p>
+            </div>
+            <div id="subtitleText_next">
+              <p>{englishSubtitle_next}</p>
+              <p>{chineseSubtitle_next}</p>
             </div>
           </div>
         </div>
