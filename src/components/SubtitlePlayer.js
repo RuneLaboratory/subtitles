@@ -1,87 +1,31 @@
-import React, { useEffect, useState } from "react";
-import Timer from "./Timer";
+import React, { useEffect, useRef, useState } from "react";
+import Timer, { secondsToHms } from "./Timer";
+import "./SubtitlePlayer.scss";
 
 export default function SubtitlePlayer() {
+  const timer = useRef(new Timer());
   const [playerTime, setplayerTime] = useState(0);
-  const [timer] = useState(new Timer());
   const [isPlaying, setIsPlaying] = useState(false);
   let videoTitle = "The Queen's Gambit";
-  const [englishSubtitleList, setEnglishSubtitleList] = useState([]);
-  const [chineseSubtitleList, setChineseSubtitleList] = useState([]);
+  const englishSubtitleList = useRef([]);
+  const chineseSubtitleList = useRef([]);
   const [englishSubtitle_present, setEnglishSubtitle_present] =
     useState("Loading ... ");
   const [chineseSubtitle_present, setChineseSubtitle_present] =
     useState("加载中 ... ");
 
   useEffect(() => {
-    timer.onTick = (time) => {
+    timer.current.onTick = (time) => {
       setplayerTime(time);
     };
-  }, [timer]);
 
-  useEffect(() => {
-    if (isPlaying) {
-      timer.start();
-    } else {
-      timer.pause();
-    }
-    return () => {
-      timer.pause();
-    };
-  }, [isPlaying, timer]);
-
-  useEffect(() => {
-    let renderingJob;
-    function renderSubtitle() {
-      let eSubtitle = englishSubtitleList[0];
-      if (eSubtitle) {
-        if (eSubtitle.end < Math.trunc(playerTime * 1000)) {
-          englishSubtitleList.shift();
-        }
-        if (
-          eSubtitle.begin > Math.trunc(playerTime * 1000) &&
-          eSubtitle.end > Math.trunc(playerTime * 1000)
-        ) {
-          setEnglishSubtitle_present(eSubtitle.value);
-        }
-      }
-
-      let cSubtitle = chineseSubtitleList[0];
-      if (cSubtitle) {
-        if (cSubtitle.end < Math.trunc(playerTime * 1000)) {
-          chineseSubtitleList.shift();
-        }
-        if (
-          cSubtitle.begin > Math.trunc(playerTime * 1000) &&
-          cSubtitle.end > Math.trunc(playerTime * 1000)
-        ) {
-          setChineseSubtitle_present(cSubtitle.value);
-        }
-      }
-
-      renderingJob = requestAnimationFrame(renderSubtitle);
-    }
-
-    if (isPlaying) {
-      requestAnimationFrame(renderSubtitle);
-    } else {
-      cancelAnimationFrame(renderingJob);
-    }
-
-    return () => {
-      cancelAnimationFrame(renderingJob);
-    };
-  }, [isPlaying, playerTime, englishSubtitleList, chineseSubtitleList]);
-
-  useEffect(() => {
     fetch("/The Queens Gambit_English_S1E1.xml")
       .then((response) => response.text())
       .then((data) => {
         const parser = new DOMParser();
         let xmlDoc = parser.parseFromString(data, "text/xml");
         let subtitles = convertXmlToSubtitle(xmlDoc);
-        setEnglishSubtitleList(subtitles);
-        console.log(subtitles);
+        englishSubtitleList.current = subtitles;
       })
       .catch(console.error);
 
@@ -91,19 +35,62 @@ export default function SubtitlePlayer() {
         const parser = new DOMParser();
         let xmlDoc = parser.parseFromString(data, "text/xml");
         let subtitles = convertXmlToSubtitle(xmlDoc);
-        setChineseSubtitleList(subtitles);
+        chineseSubtitleList.current = subtitles;
       })
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    let timerRef = timer.current;
+    if (isPlaying) {
+      timerRef.start();
+    } else {
+      timerRef.pause();
+    }
+    return () => {
+      timerRef.pause();
+    };
+  }, [isPlaying]);
+
+  useEffect(() => {
+    let eSubtitle = englishSubtitleList.current[0];
+    if (eSubtitle) {
+      if (eSubtitle.end < Math.trunc(playerTime * 1000)) {
+        englishSubtitleList.current.shift();
+      }
+      if (
+        eSubtitle.begin > Math.trunc(playerTime * 1000) &&
+        eSubtitle.end > Math.trunc(playerTime * 1000)
+      ) {
+        setEnglishSubtitle_present(eSubtitle.value);
+      }
+    }
+
+    let cSubtitle = chineseSubtitleList.current[0];
+    if (cSubtitle) {
+      if (cSubtitle.end < Math.trunc(playerTime * 1000)) {
+        chineseSubtitleList.current.shift();
+      }
+      if (
+        cSubtitle.begin > Math.trunc(playerTime * 1000) &&
+        cSubtitle.end > Math.trunc(playerTime * 1000)
+      ) {
+        setChineseSubtitle_present(cSubtitle.value);
+      }
+    }
+  }, [playerTime]);
+
   return (
-    <div>
+    <div id="subtitlePlayer">
       <div id="videoTitle">
         <h3>{videoTitle}</h3>
       </div>
       <div id="playerTime">
-        <p>{Math.trunc(playerTime * 1000)}</p>
-        <p>{Math.trunc(playerTime) + " sec"}</p>
+        <p>
+          <span>{Math.trunc(playerTime) + " Sec "}</span>
+          <span>{Math.trunc(playerTime * 1000)}</span>
+        </p>
+        <p>{secondsToHms(playerTime)}</p>
       </div>
       <div id="subtitleDisplay">
         <div id="subtitleText_previous">
@@ -112,7 +99,12 @@ export default function SubtitlePlayer() {
         </div>
       </div>
       <div>
-        <button id="PlayPauseBtn" onClick={() => setIsPlaying(!isPlaying)}>
+        <button
+          id="PlayBtn"
+          type="button"
+          className="btn btn-primary"
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
           {isPlaying ? "Pause" : "Play"}
         </button>
       </div>
