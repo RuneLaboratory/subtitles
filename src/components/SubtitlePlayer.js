@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Timer, { secondsToHms } from "./Timer";
+import Timer, { secondsToHms, hmsTosec } from "./Timer";
 import "./SubtitlePlayer.scss";
 
 export default function SubtitlePlayer() {
@@ -13,6 +13,8 @@ export default function SubtitlePlayer() {
     useState("Loading ... ");
   const [chineseSubtitle_present, setChineseSubtitle_present] =
     useState("加载中 ... ");
+  const [inputTime, setInputTime] = useState();
+  const totalDuration = 3493;
 
   useEffect(() => {
     timer.current.onTick = (time) => {
@@ -47,66 +49,107 @@ export default function SubtitlePlayer() {
     } else {
       timerRef.pause();
     }
+
+    // TODO
+    setInputTime("");
+    
     return () => {
       timerRef.pause();
     };
   }, [isPlaying]);
 
   useEffect(() => {
-    let eSubtitle = englishSubtitleList.current[0];
-    if (eSubtitle) {
-      if (eSubtitle.end < Math.trunc(playerTime * 1000)) {
-        englishSubtitleList.current.shift();
-      }
-      if (
-        eSubtitle.begin > Math.trunc(playerTime * 1000) &&
-        eSubtitle.end > Math.trunc(playerTime * 1000)
-      ) {
-        setEnglishSubtitle_present(eSubtitle.value);
-      }
+    let eSubtitleToDisplay = englishSubtitleList.current.find(
+      (subtitle) =>
+        subtitle.begin > Math.trunc(playerTime * 1000) &&
+        subtitle.end > Math.trunc(playerTime * 1000)
+    );
+    if (eSubtitleToDisplay) {
+      setEnglishSubtitle_present(eSubtitleToDisplay.value);
     }
 
-    let cSubtitle = chineseSubtitleList.current[0];
-    if (cSubtitle) {
-      if (cSubtitle.end < Math.trunc(playerTime * 1000)) {
-        chineseSubtitleList.current.shift();
-      }
-      if (
-        cSubtitle.begin > Math.trunc(playerTime * 1000) &&
-        cSubtitle.end > Math.trunc(playerTime * 1000)
-      ) {
-        setChineseSubtitle_present(cSubtitle.value);
-      }
+    let cSubtitleToDisplay = chineseSubtitleList.current.find(
+      (subtitle) =>
+        subtitle.begin > Math.trunc(playerTime * 1000) &&
+        subtitle.end > Math.trunc(playerTime * 1000)
+    );
+    if (cSubtitleToDisplay) {
+      setChineseSubtitle_present(cSubtitleToDisplay.value);
     }
   }, [playerTime]);
 
+  useEffect(() => {
+    if (inputTime) {
+      timer.current.setCurrentTime(hmsTosec(inputTime));
+    }
+  }, [inputTime]);
+
   return (
     <div id="subtitlePlayer">
-      <div id="videoTitle">
-        <h3>{videoTitle}</h3>
-      </div>
-      <div id="playerTime">
-        <p>
-          <span>{Math.trunc(playerTime) + " Sec "}</span>
-          <span>{Math.trunc(playerTime * 1000)}</span>
-        </p>
-        <p>{secondsToHms(playerTime)}</p>
-      </div>
-      <div id="subtitleDisplay">
-        <div id="subtitleText_previous">
-          <p>{englishSubtitle_present}</p>
-          <p>{chineseSubtitle_present}</p>
+      <div className=".container h-100">
+        <div className="row align-items-start h-25">
+          <div id="videoTitle">
+            <h3>{videoTitle}</h3>
+          </div>
+          <div id="playerTime">
+            <p>
+              <span className="time-sec">
+                {Math.trunc(playerTime) + " Sec "}
+              </span>
+              <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
+            </p>
+            <p className="time">{secondsToHms(totalDuration - playerTime)}</p>
+            <div>
+              {!isPlaying ? (
+                <input
+                  id="inputTime"
+                  type="number"
+                  className="form-control"
+                  onChange={(e) => setInputTime(e.target.value)}
+                />
+              ) : (
+                <input type="hidden"></input>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <button
-          id="PlayBtn"
-          type="button"
-          className="btn btn-primary"
-          onClick={() => setIsPlaying(!isPlaying)}
-        >
-          {isPlaying ? "Pause" : "Play"}
-        </button>
+        <div className="row align-items-center h-50">
+          <div id="subtitleDisplay">
+            <div id="subtitleText_previous">
+              <p>{englishSubtitle_present}</p>
+              <p>{chineseSubtitle_present}</p>
+            </div>
+          </div>
+        </div>
+        <div className="row align-items-end h-25">
+          <div>
+            <button
+              id="backward1sec-btn"
+              className="btn btn-warning"
+              onClick={() => timer.current.backword(1)}
+            >
+              -
+            </button>
+            <button
+              id="PlayBtn"
+              type="button"
+              className={
+                (isPlaying ? "btn btn-outline-success" : "btn btn-success") +
+                " btn-lg"
+              }
+              onClick={() => setIsPlaying(!isPlaying)}
+            >
+              {isPlaying ? "Pause" : "Play"}
+            </button>
+            <button
+              id="forward1sec-btn"
+              className="btn btn-warning"
+              onClick={() => timer.current.forward(1)}
+            >
+              +
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
