@@ -9,14 +9,14 @@ export default function SubtitlePlayer() {
   let videoTitle = "The Queen's Gambit";
   const englishSubtitleList = useRef([]);
   const chineseSubtitleList = useRef([]);
-  const [englishSubtitle_previous, setEnglishSubtitle_previous] = useState("");
-  const [chineseSubtitle_previous, setChineseSubtitle_previous] = useState("");
-  const [englishSubtitle_present, setEnglishSubtitle_present] =
-    useState("Loading ... ");
-  const [chineseSubtitle_present, setChineseSubtitle_present] =
-    useState("加载中 ... ");
-  const [englishSubtitle_next, setEnglishSubtitle_next] = useState("");
-  const [chineseSubtitle_next, setChineseSubtitle_next] = useState("");
+  const [englishSubtitleIndex, setEnglishSubtitleIndex] = useState(-1);
+  const [chineseSubtitleIndex, setChinsesSubtitleIndex] = useState(-1);
+  const [englishSubtitle_previous, setEnglishSubtitle_previous] = useState("\u00A0");
+  const [chineseSubtitle_previous, setChineseSubtitle_previous] = useState("\u00A0");
+  const [englishSubtitle_present, setEnglishSubtitle_present] = useState("\u00A0");
+  const [chineseSubtitle_present, setChineseSubtitle_present] = useState("\u00A0");
+  const [englishSubtitle_next, setEnglishSubtitle_next] = useState("\u00A0");
+  const [chineseSubtitle_next, setChineseSubtitle_next] = useState("\u00A0");
   const [inputTime, setInputTime] = useState();
   const totalDuration = 3493;
 
@@ -69,18 +69,8 @@ export default function SubtitlePlayer() {
         subtitle.end > Math.trunc(playerTime * 1000)
       );
     });
-    if (eIndexToDisplay >= 0) {
-      setEnglishSubtitle_previous(
-        englishSubtitleList.current[eIndexToDisplay - 1]?.value
-      );
-      setEnglishSubtitle_present(
-        englishSubtitleList.current[eIndexToDisplay].value
-      );
-      setEnglishSubtitle_next(
-        englishSubtitleList.current[eIndexToDisplay + 1].value
-      );
-    } else {
-      setEnglishSubtitle_present("");
+    if (englishSubtitleIndex !== eIndexToDisplay) {
+      setEnglishSubtitleIndex(eIndexToDisplay);
     }
 
     let cIndexToDisplay = chineseSubtitleList.current.findIndex((subtitle) => {
@@ -89,20 +79,42 @@ export default function SubtitlePlayer() {
         subtitle.end > Math.trunc(playerTime * 1000)
       );
     });
-    if (cIndexToDisplay >= 0) {
-      setChineseSubtitle_previous(
-        chineseSubtitleList.current[cIndexToDisplay -1]?.value
-      );
-      setChineseSubtitle_present(
-        chineseSubtitleList.current[cIndexToDisplay].value
-      );
-      setChineseSubtitle_next(
-        chineseSubtitleList.current[cIndexToDisplay + 1].value
-      );
-    } else {
-      setChineseSubtitle_present("");
+
+    if (chineseSubtitleIndex !== cIndexToDisplay) {
+      setChinsesSubtitleIndex(cIndexToDisplay);
     }
   }, [playerTime]);
+
+  useEffect(() => {
+    if (englishSubtitleIndex >= 0) {
+      setEnglishSubtitle_present(
+        englishSubtitleList.current[englishSubtitleIndex].value
+      );
+    } else {
+      setTimeout(() => {
+        setEnglishSubtitleIndex((prev) => {
+          if (prev < 0) {
+            setEnglishSubtitle_present("\u00A0");
+          }
+          return prev;
+        });
+      }, 1000);
+    }
+    if (chineseSubtitleIndex >= 0) {
+      setChineseSubtitle_present(
+        chineseSubtitleList.current[chineseSubtitleIndex].value
+      );
+    } else {
+      setTimeout(() => {
+        setChinsesSubtitleIndex((prev) => {
+          if (prev < 0) {
+            setChineseSubtitle_present("\u00A0");
+          }
+          return prev;
+        });
+      }, 1000);
+    }
+  }, [englishSubtitleIndex, chineseSubtitleIndex]);
 
   useEffect(() => {
     if (inputTime) {
@@ -162,25 +174,38 @@ export default function SubtitlePlayer() {
               className="btn btn-warning"
               onClick={() => timer.current.backword(1)}
             >
-              -
+              &lt;&lt;
+            </button>
+            <button
+              id="backward05sec-btn"
+              className="btn btn-warning"
+              onClick={() => timer.current.backword(0.5)}
+            >
+              &lt;
             </button>
             <button
               id="PlayBtn"
               type="button"
               className={
-                (isPlaying ? "btn btn-outline-success" : "btn btn-success") +
-                " btn-lg"
+                isPlaying ? "btn btn-outline-success" : "btn btn-success"
               }
               onClick={() => setIsPlaying(!isPlaying)}
             >
               {isPlaying ? "Pause" : "Play"}
             </button>
             <button
+              id="forward05sec-btn"
+              className="btn btn-warning"
+              onClick={() => timer.current.forward(0.5)}
+            >
+              &gt;
+            </button>
+            <button
               id="forward1sec-btn"
               className="btn btn-warning"
               onClick={() => timer.current.forward(1)}
             >
-              +
+              &gt;&gt;
             </button>
           </div>
         </div>

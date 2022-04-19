@@ -30,21 +30,28 @@
       margin: 0;
     }
     #subtitleText_present {
-      font-size: 1.3em;
+      font-size: 1.2em;
       font-weight: bold;
     }
   }
 
   button#PlayBtn {
-    margin: 25px;
-    min-width: 150px;
+    margin: 20px;
+    min-width: 120px;
     font-size: 2em;
   }
   #backward1sec-btn,
   #forward1sec-btn {
-    margin: auto 25px;
-    width: 50px;
-    height: 50px;
+    margin: auto 20px;
+    width: 45px;
+    height: 45px;
+    font-weight:700;
+  }
+  #backward05sec-btn,
+  #forward05sec-btn {
+    margin: auto 20px;
+    width: 40px;
+    height: 40px;
   }
 
   #inputTime {
