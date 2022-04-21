@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tt ttp:contentProfiles="http://www.w3.org/ns/ttml/profile/imsc1.1/text" xmlns="http://www.w3.org/ns/ttml" xmlns:nttm="http://www.netflix.com/ns/ttml#metadata" xmlns:tt="http://www.w3.org/ns/ttml" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:xml="http://www.w3.org/XML/1998/namespace" ttp:tickRate="10000000" ttp:timeBase="media" xml:lang="zh-Hans">
+<head>
+<metadata nttm:Smpte24TimingAdjusted="true" nttm:movieID="80214688" nttm:packageID="1413511" nttm:schemaVersion="0" nttm:textType="SUBS" nttm:uuid="3219670a-7cea-47d9-ab81-05a8b684b66e"/>
+<styling>
+<initial tts:backgroundColor="transparent" tts:color="white" tts:displayAlign="after" tts:extent="80.000% 80.000%" tts:fontSize="6.000rh" tts:opacity="1.000" tts:origin="10.000% 10.000%" tts:showBackground="whenActive" tts:textAlign="center" tts:textOutline="black 0.250rh" tts:writingMode="lrtb"/>
+<style xml:id="style1" tts:fontWeight="normal"/>
+</styling>
+<layout>
+<region xml:id="region0" tts:displayAlign="after" tts:extent="80.000% 40.000%" tts:origin="10.000% 50.000%"/>
+<region xml:id="region1" tts:displayAlign="before" tts:extent="80.000% 40.000%" tts:origin="10.000% 10.000%"/>
+</layout>
+</head>
+<body>
+<div>
+<p xml:id="subtitle1" begin="35869166t" end="54637916t" region="region0"><span style="style1">我老爸奋进人…</span></p>
+<p xml:id="subtitle2" begin="62979582t" end="86336250t" region="region0"><span style="style1">是一个万年老二的英雄</span></p>
+<p xml:id="subtitle3" begin="96346250t" end="111361249t" region="region0"><span style="style1">我的儿子焦冻</span></p>
+<p xml:id="subtitle4" begin="113446666t" end="135552082t" region="region0"><span style="style1">肩负着超越欧尔麦特的义务</span></p>
+<p xml:id="subtitle5" begin="152235416t" end="187270416t" region="region0"><span style="style1">假如你跟第一英雄之间</span><br/><span style="style1">有任何关系的话</span></p>
+<p xml:id="subtitle6" begin="191441250t" end="200200000t" region="region0"><span style="style1">那么…</span></p>
+<p xml:id="subtitle7" begin="209375832t" end="228561666t" region="region0"><span style="style1">我就更得赢过你才行</span></p>
+<p xml:id="subtitle8" begin="252335416t" end="287370416t" region="region0"><span style="style1">我记忆中的母亲…一直在哭泣</span></p>
+<p xml:id="subtitle9" begin="294877916t" end="320320000t" region="region0"><span style="style1">“你的左半边实在太丑陋了”</span></p>
+<p xml:id="subtitle10" begin="331164166t" end="357023332t" region="region0"><span style="style1">她一边说一边把热水浇到我身上</span></p>
+<p xml:id="subtitle11" begin="380797082t" end="408741666t" region="region0"><span style="style1">就算没有那个臭老爸的个性 我也…</span></p>
+<p xml:id="subtitle12" begin="412495416t" end="450032916t" region="region0"><span style="style1">不对 就算不使用 我也能成为第一</span></p>
+<p xml:id="subtitle13" begin="450867082t" end="471721249t" region="region0"><span style="style1">我要借此完全否定他</span></p>
+<p xml:id="subtitle14" begin="486736249t" end="512178332t" region="region0"><span style="style1">总之 不管你是欧尔麦特的什么人</span></p>
+<p xml:id="subtitle15" begin="519685832t" end="544710832t" region="region0"><span style="style1">我都只会用右半边的力量超越你</span></p>
+<p xml:id="subtitle16" begin="572655416t" end="599765832t" region="region0"><span style="style1">但是…我也绝对不可以输</span></p>
+<p xml:id="subtitle17" begin="606439166t" end="633549582t" region="region0"><span style="style1">这也是为了回报那些</span><br/><span style="style1">曾经帮助过我的人们</span></p>
+<p xml:id="subtitle18" begin="649398750t" end="663162500t" region="region0"><span style="style1">我一定会赢过你</span></p>
+<p xml:id="subtitle19" begin="822905416t" end="859608749t" region="region0"><span style="style1">片名：我的英雄学院</span></p>
+<p xml:id="subtitle20" begin="1632464166t" end="1665830832t" region="region0"><span style="style1">但是…你想成为英雄不是吗？</span></p>
+<p xml:id="subtitle21" begin="1709207499t" end="1734232499t" region="region0"><span style="style1">你可以…当英雄的</span></p>
+<p xml:id="subtitle22" begin="1760925832t" end="1770935832t" region="region0"><span style="style1">不知道从何时起…</span></p>
+<p xml:id="subtitle23" begin="1776774999t" end="1798880416t" region="region0"><span style="style1">我把这之后的记忆都忘了</span></p>
+<p xml:id="subtitle24" begin="1964045416t" end="1972804166t" region="region1"><span style="style1">（轰焦冻对战绿谷出久）</span></p>
+<p xml:id="subtitle25" begin="1980311666t" end="2002834166t" region="region0"><span style="style1">四强赛的第一场比赛</span></p>
+<p xml:id="subtitle26" begin="2007422082t" end="2043708332t" region="region0"><span style="style1">这两个人这次运动会的成绩</span><br/><span style="style1">也都优秀得不得了</span></p>
+<p xml:id="subtitle27" begin="2052467082t" end="2073738332t" region="region0"><span style="style1">绿谷</span></p>
+<p xml:id="subtitle28" begin="2092089999t" end="2106270832t" region="region0"><span style="style1">他会先发动冰冻招式</span></p>
+<p xml:id="subtitle29" begin="2113778332t" end="2157155000t" region="region0"><span style="style1">对战 轰！</span></p>
+<p xml:id="subtitle30" begin="2165079582t" end="2195943750t" region="region0"><span style="style1">让他随意发挥那股力量的话</span><br/><span style="style1">会很危险</span></p>
+<p xml:id="subtitle31" begin="2204285416t" end="2235983750t" region="region0"><span style="style1">场上可说是双雄并立 现在</span></p>
+<p xml:id="subtitle32" begin="2240988750t" end="2254752500t" region="region0"><span style="style1">要在开始的一瞬间…</span></p>
+<p xml:id="subtitle33" begin="2259757500t" end="2281445832t" region="region0"><span style="style1">-开始！</span><br/><span style="style1">-发动攻势</span></p>
+<p xml:id="subtitle34" begin="2299797500t" end="2312727082t" region="region0"><span style="style1">爆碎风</span></p>
+<p xml:id="subtitle35" begin="2402400000t" end="2433264166t" region="region0"><span style="style1">-好冷</span><br/><span style="style1">-怎么光是风就这么冷？</span></p>
+<p xml:id="subtitle36" begin="2494992500t" end="2515012500t" region="region0"><span style="style1">果然不出我所料</span></p>
+<p xml:id="subtitle37" begin="2533781250t" end="2553801250t" region="region0"><span style="style1">抱着牺牲觉悟的抵销战术</span></p>
+<p xml:id="subtitle38" begin="2572152916t" end="2610524582t" region="region0"><span style="style1">绿谷成功化解了轰的冰冻攻击</span></p>
+<p xml:id="subtitle39" begin="2611358750t" end="2653901250t" region="region0"><span style="style1">因为不清楚轰少年</span><br/><span style="style1">究竟会发动多大规模的攻势</span></p>
+<p xml:id="subtitle40" begin="2654735416t" end="2687267916t" region="region0"><span style="style1">所以他舍弃了控制能力</span><br/><span style="style1">以百分之百的威力攻击</span></p>
+<p xml:id="subtitle41" begin="2706453750t" end="2740237500t" region="region0"><span style="style1">要对付他的冰冻攻击</span><br/><span style="style1">的确就只能用这一招</span></p>
+<p xml:id="subtitle42" begin="2748996250t" end="2757755000t" region="region0"><span style="style1">但是…</span></p>
+<p xml:id="subtitle43" begin="2773187082t" end="2801131666t" region="region0"><span style="style1">爆碎风</span></p>
+<p xml:id="subtitle44" begin="2808639166t" end="2830327500t" region="region0"><span style="style1">绿谷再度化解了</span></p>
+<p xml:id="subtitle45" begin="2872452916t" end="2895392500t" region="region0"><span style="style1">轰同学的战斗都在瞬间结束</span></p>
+<p xml:id="subtitle46" begin="2898312082t" end="2922085832t" region="region0"><span style="style1">能得知的情报太少了</span></p>
+<p xml:id="subtitle47" begin="2925422500t" end="2934598332t" region="region0"><span style="style1">情报…</span></p>
+<p xml:id="subtitle48" begin="2938769166t" end="2972135832t" region="region0"><span style="style1">必须在这场战斗中找到他的弱点才行</span></p>
+<p xml:id="subtitle49" begin="2981728750t" end="3001748750t" region="region0"><span style="style1">在他背后的那道冰墙</span></p>
+<p xml:id="subtitle50" begin="3004251250t" end="3029693332t" region="region0"><span style="style1">应该是为了不被我轰飞</span><br/><span style="style1">所采取的对策</span></p>
+<p xml:id="subtitle51" begin="3034281250t" end="3045125416t" region="region0"><span style="style1">这么一来</span></p>
+<p xml:id="subtitle52" begin="3049713332t" end="3064728332t" region="region0"><span style="style1">使用手指是正确的</span></p>
+<p xml:id="subtitle53" begin="3072652916t" end="3098095000t" region="region0"><span style="style1">就算牺牲手臂</span><br/><span style="style1">使出百分之百威力的爆碎风</span></p>
+<p xml:id="subtitle54" begin="3098929166t" end="3116863750t" region="region0"><span style="style1">他也很有可能应付得了</span></p>
+<p xml:id="subtitle55" begin="3138135000t" end="3150647500t" region="region0"><span style="style1">得快点看穿</span></p>
+<p xml:id="subtitle56" begin="3158989166t" end="3184014166t" region="region0"><span style="style1">加快思考 找出他的弱点</span></p>
+<p xml:id="subtitle57" begin="3195275416t" end="3221134582t" region="region0"><span style="style1">得在…剩下的六发察觉</span></p>
+<p xml:id="subtitle58" begin="3237817916t" end="3249496250t" region="region0"><span style="style1">你这家伙</span></p>
+<p xml:id="subtitle59" begin="3350013332t" end="3364611249t" region="region0"><span style="style1">还剩五次机会</span></p>
+<p xml:id="subtitle60" begin="3403817082t" end="3415495416t" region="region0"><span style="style1">已经开始了啊</span></p>
+<p xml:id="subtitle61" begin="3417580832t" end="3443439999t" region="region0"><span style="style1">切岛 恭喜你晋级四强赛</span></p>
+<p xml:id="subtitle62" begin="3448027916t" end="3475138332t" region="region0"><span style="style1">谢谢 爆豪 下场就跟你打了</span></p>
+<p xml:id="subtitle63" begin="3475972499t" end="3493489999t" region="region0"><span style="style1">-请多指教</span><br/><span style="style1">-我会宰了你</span></p>
+<p xml:id="subtitle64" begin="3510173332t" end="3535198332t" region="region0"><span style="style1">放马过来！话虽如此</span></p>
+<p xml:id="subtitle65" begin="3536032499t" end="3573987082t" region="region0"><span style="style1">你跟轰一样</span><br/><span style="style1">都会接二连三地使用大范围攻击</span></p>
+<p xml:id="subtitle66" begin="3576489582t" end="3585665416t" region="region0"><span style="style1">轰一下打过来</span></p>
+<p xml:id="subtitle67" begin="3589836249t" end="3611107499t" region="region0"><span style="style1">而且丝毫不给人喘息的空间</span></p>
+<p xml:id="subtitle68" begin="3611941666t" end="3633629999t" region="region0"><span style="style1">才不是接二连三 少瞧不起人了</span></p>
+<p xml:id="subtitle69" begin="3651564582t" end="3679092082t" region="region0"><span style="style1">过度使用肌肉 肌肉纤维就会断裂</span></p>
+<p xml:id="subtitle70" begin="3681177499t" end="3699529166t" region="region0"><span style="style1">一直跑 一样会气喘吁吁</span></p>
+<p xml:id="subtitle71" begin="3715378332t" end="3744991249t" region="region0"><span style="style1">就算是我 释放的威力一样有极限</span></p>
+<p xml:id="subtitle72" begin="3752498749t" end="3770850416t" region="region0"><span style="style1">所以我才会花心思 把战斗服设计成</span></p>
+<p xml:id="subtitle73" begin="3771684582t" end="3810890416t" region="region0"><span style="style1">就算使用超过极限的爆炸</span><br/><span style="style1">也不会有任何风险</span></p>
+<p xml:id="subtitle74" begin="3829659166t" end="3846342499t" region="region0"><span style="style1">个性也算是身体机能</span></p>
+<p xml:id="subtitle75" begin="3853015832t" end="3886382499t" region="region0"><span style="style1">场上那两个家伙…应该也有某种极限</span></p>
+<p xml:id="subtitle76" begin="3891804582t" end="3911407499t" region="region0"><span style="style1">仔细想想 的确是这样</span></p>
+<p xml:id="subtitle77" begin="3917663749t" end="3942688749t" region="region0"><span style="style1">所以绿谷打算对秒杀对手的轰使出…</span></p>
+<p xml:id="subtitle78" begin="3953115832t" end="3967296666t" region="region0"><span style="style1">持久战是吗？</span></p>
+<p xml:id="subtitle79" begin="3973969999t" end="3993989999t" region="region0"><span style="style1">我会马上结束比赛</span></p>
+<p xml:id="subtitle80" begin="4010256249t" end="4030276249t" region="region0"><span style="style1">爆碎风</span></p>
+<p xml:id="subtitle81" begin="4054049999t" end="4074069999t" region="region0"><span style="style1">右手已经全毁了</span></p>
+<p xml:id="subtitle82" begin="4084079999t" end="4124537082t" region="region0"><span style="style1">轰 毫不畏惧绿谷的力量</span><br/><span style="style1">快速向他逼近</span></p>
+<p xml:id="subtitle83" begin="4125371249t" end="4142054582t" region="region0"><span style="style1">可恶</span></p>
+<p xml:id="subtitle84" begin="4253415832t" end="4266762499t" region="region0"><span style="style1">不行 太近了</span></p>
+<p xml:id="subtitle85" begin="4502414582t" end="4532861666t" region="region0"><span style="style1">跟刚才比起来 威力还要更强大</span></p>
+<p xml:id="subtitle86" begin="4554132916t" end="4567062500t" region="region0"><span style="style1">不希望我…</span></p>
+<p xml:id="subtitle87" begin="4571233332t" end="4582494582t" region="region0"><span style="style1">接近吗？</span></p>
+<p xml:id="subtitle88" begin="4620449166t" end="4640052082t" region="region0"><span style="style1">不只是个性而已</span></p>
+<p xml:id="subtitle89" begin="4648810832t" end="4676338332t" region="region0"><span style="style1">判断力 应变能力</span></p>
+<p xml:id="subtitle90" begin="4677172500t" end="4688016666t" region="region0"><span style="style1">机动力</span></p>
+<p xml:id="subtitle91" begin="4693438750t" end="4705534166t" region="region0"><span style="style1">他所有的能力</span></p>
+<p xml:id="subtitle92" begin="4711790416t" end="4720549166t" region="region0"><span style="style1">都好强</span></p>
+<p xml:id="subtitle93" begin="4754750000t" end="4779775000t" region="region0"><span style="style1">他根本已经比一般职业英雄都强了啊</span></p>
+<p xml:id="subtitle94" begin="4781860416t" end="4813141666t" region="region0"><span style="style1">感觉真不愧是第二英雄的儿子呢</span></p>
+<p xml:id="subtitle95" begin="4823985832t" end="4835664166t" region="region0"><span style="style1">什么嘛？</span></p>
+<p xml:id="subtitle96" begin="4836915416t" end="4864025832t" region="region0"><span style="style1">光顾着逃跑跟防守就全身是伤了</span></p>
+<p xml:id="subtitle97" begin="4907402500t" end="4918663750t" region="region0"><span style="style1">他在颤抖</span></p>
+<p xml:id="subtitle98" begin="4932010416t" end="4949527916t" region="region0"><span style="style1">原来是这么回事…</span></p>
+<p xml:id="subtitle99" begin="4960372082t" end="4979140832t" region="region0"><span style="style1">可恶</span></p>
+<p xml:id="subtitle100" begin="4986648332t" end="4997492500t" region="region0"><span style="style1">真是不好意思</span></p>
+<p xml:id="subtitle101" begin="5002080416t" end="5016678332t" region="region0"><span style="style1">不过绿谷 谢谢你</span></p>
+<p xml:id="subtitle102" begin="5022100416t" end="5056718332t" region="region0"><span style="style1">托你的福 那家伙的脸色变难看了</span></p>
+<p xml:id="subtitle103" begin="5081743332t" end="5109270832t" region="region0"><span style="style1">就算没有那个臭老爸的个性 我也…</span></p>
+<p xml:id="subtitle104" begin="5124702916t" end="5133878750t" region="region0"><span style="style1">不对…</span></p>
+<p xml:id="subtitle105" begin="5143888750t" end="5172250416t" region="region0"><span style="style1">就算不使用 我也能成为第一</span></p>
+<p xml:id="subtitle106" begin="5173084582t" end="5196024166t" region="region0"><span style="style1">我要借此完全否定他</span></p>
+<p xml:id="subtitle107" begin="5212290416t" end="5240652082t" region="region0"><span style="style1">看你的双手</span><br/><span style="style1">应该已经无法战斗了吧？</span></p>
+<p xml:id="subtitle108" begin="5246491250t" end="5257752500t" region="region0"><span style="style1">该让比赛结束了</span></p>
+<p xml:id="subtitle109" begin="5281526250t" end="5304465832t" region="region0"><span style="style1">轰以压倒性之势 接连发动攻击</span></p>
+<p xml:id="subtitle110" begin="5306551250t" end="5323234582t" region="region0"><span style="style1">他使出最后的冰冻攻击</span></p>
+<p xml:id="subtitle111" begin="5359937916t" end="5374118750t" region="region0"><span style="style1">你到底在看哪里？</span></p>
+<p xml:id="subtitle112" begin="5541786250t" end="5553464582t" region="region0"><span style="style1">你这家伙…</span></p>
+<p xml:id="subtitle113" begin="5565560000t" end="5581409166t" region="region0"><span style="style1">竟然用已经受伤的手指…</span></p>
+<p xml:id="subtitle114" begin="5598926666t" end="5616444166t" region="region0"><span style="style1">为什么要拼成这样？</span></p>
+<p xml:id="subtitle115" begin="5631042082t" end="5643971666t" region="region0"><span style="style1">你在发抖呢</span></p>
+<p xml:id="subtitle116" begin="5649393750t" end="5663574582t" region="region0"><span style="style1">轰同学</span></p>
+<p xml:id="subtitle117" begin="5676504166t" end="5704031666t" region="region0"><span style="style1">说穿了 个性也是身体机能的一部分</span></p>
+<p xml:id="subtitle118" begin="5709036666t" end="5746574166t" region="region0"><span style="style1">就算是你</span><br/><span style="style1">对寒冷也是有忍耐极限的吧</span></p>
+<p xml:id="subtitle119" begin="5757835416t" end="5775770000t" region="region0"><span style="style1">不过 其实这点</span></p>
+<p xml:id="subtitle120" begin="5782443332t" end="5822066250t" region="region0"><span style="style1">只要你使用左半边的火焰力量</span><br/><span style="style1">不就能解决了吗？</span></p>
+<p xml:id="subtitle121" begin="5858352500t" end="5867528332t" region="region0"><span style="style1">大家…</span></p>
+<p xml:id="subtitle122" begin="5872116250t" end="5886297082t" region="region0"><span style="style1">都是认真应战</span></p>
+<p xml:id="subtitle123" begin="5897558332t" end="5906317082t" region="region0"><span style="style1">赢得胜利</span></p>
+<p xml:id="subtitle124" begin="5918829582t" end="5935512916t" region="region0"><span style="style1">往自己的目标进一步迈进</span></p>
+<p xml:id="subtitle125" begin="5945105832t" end="5961789166t" region="region0"><span style="style1">为了成为第一名</span></p>
+<p xml:id="subtitle126" begin="5990985000t" end="6013090416t" region="region0"><span style="style1">你要只用一半的力量获胜</span></p>
+<p xml:id="subtitle127" begin="6028105416t" end="6042286250t" region="region0"><span style="style1">你还没有…</span></p>
+<p xml:id="subtitle128" begin="6046874166t" end="6076904166t" region="region0"><span style="style1">伤我一分一毫 对我造成任何伤害</span></p>
+<p xml:id="subtitle129" begin="6111939166t" end="6133627500t" region="region0"><span style="style1">有本事就使出全力来啊！</span></p>
+<p xml:id="subtitle130" begin="6159486666t" end="6173667500t" region="region0"><span style="style1">绿谷少年…</span></p>
+<p xml:id="subtitle131" begin="6210370832t" end="6222049166t" region="region0"><span style="style1">所以轰同学…</span></p>
+<p xml:id="subtitle132" begin="6227888332t" end="6239149582t" region="region0"><span style="style1">也不是您</span></p>
+<p xml:id="subtitle133" begin="6252496250t" end="6264591666t" region="region0"><span style="style1">那个小子…</span></p>
+<p xml:id="subtitle134" begin="6311722082t" end="6325068750t" region="region0"><span style="style1">绿谷</span></p>
+<p xml:id="subtitle135" begin="6332993332t" end="6348842500t" region="region0"><span style="style1">你在打什么歪主意？</span></p>
+<p xml:id="subtitle136" begin="6353847500t" end="6368445416t" region="region0"><span style="style1">尽全力</span></p>
+<p xml:id="subtitle137" begin="6375118750t" end="6398475416t" region="region0"><span style="style1">难不成你被我那个臭老爸收买了吗？</span></p>
+<p xml:id="subtitle138" begin="6415575832t" end="6430590832t" region="region0"><span style="style1">真让人火大</span></p>
+<p xml:id="subtitle139" begin="6458952500t" end="6467711250t" region="region0"><span style="style1">他的动作…</span></p>
+<p xml:id="subtitle140" begin="6471882082t" end="6482309166t" region="region0"><span style="style1">变缓慢了</span></p>
+<p xml:id="subtitle141" begin="6488565416t" end="6509002500t" region="region0"><span style="style1">因为冰霜覆盖在他身上</span></p>
+<p xml:id="subtitle142" begin="6512756250t" end="6538615416t" region="region0"><span style="style1">恐怕跟我威力有上限的原因不一样</span></p>
+<p xml:id="subtitle143" begin="6539449582t" end="6559886666t" region="region0"><span style="style1">更像是游戏里面的魔法值</span></p>
+<p xml:id="subtitle144" begin="6569896666t" end="6596590000t" region="region0"><span style="style1">打酱油脸那时的攻击</span><br/><span style="style1">就已经是最大极限了吗？</span></p>
+<p xml:id="subtitle145" begin="6618278332t" end="6632042082t" region="region0"><span style="style1">近距离的话</span></p>
+<p xml:id="subtitle146" begin="6634127500t" end="6653730416t" region="region0"><span style="style1">你就没办法应对了</span></p>
+<p xml:id="subtitle147" begin="6675418750t" end="6702112082t" region="region0"><span style="style1">在我抬起左脚的那瞬间 这家伙…</span></p>
+<p xml:id="subtitle148" begin="6709619582t" end="6730473749t" region="region0"><span style="style1">想象一下…微波炉</span></p>
+<p xml:id="subtitle149" begin="6745071666t" end="6781357916t" region="region0"><span style="style1">不会爆炸 不会…</span></p>
+<p xml:id="subtitle150" begin="6782192082t" end="6793453332t" region="region0"><span style="style1">不会爆炸</span></p>
+<p xml:id="subtitle151" begin="6800960832t" end="6818895416t" region="region0"><span style="style1">是怪物吗？</span></p>
+<p xml:id="subtitle152" begin="6837247082t" end="6863106249t" region="region0"><span style="style1">绿谷挥出魄力十足的一拳</span></p>
+<p xml:id="subtitle153" begin="6890633749t" end="6918161249t" region="region0"><span style="style1">他竟然…结结实实给了轰一拳</span></p>
+<p xml:id="subtitle154" begin="6922332082t" end="6952779166t" region="region0"><span style="style1">不管再怎么看</span><br/><span style="style1">都是绿谷伤得比较重啊</span></p>
+<p xml:id="subtitle155" begin="6954864582t" end="6976135832t" region="region0"><span style="style1">没想到他现在还能发动攻击</span></p>
+<p xml:id="subtitle156" begin="7021180832t" end="7031190832t" region="region0"><span style="style1">为什么？</span></p>
+<p xml:id="subtitle157" begin="7069979582t" end="7090833749t" region="region0"><span style="style1">他的冰冻攻势变弱了</span></p>
+<p xml:id="subtitle158" begin="7184260416t" end="7198858332t" region="region0"><span style="style1">要喊停吗 午夜时分？</span></p>
+<p xml:id="subtitle159" begin="7210119582t" end="7220129582t" region="region0"><span style="style1">我想绿谷…</span></p>
+<p xml:id="subtitle160" begin="7223049166t" end="7251410832t" region="region0"><span style="style1">一定抱着</span><br/><span style="style1">反正复原女孩可以治好他的想法</span></p>
+<p xml:id="subtitle161" begin="7252244999t" end="7273516249t" region="region0"><span style="style1">才会这么乱来</span></p>
+<p xml:id="subtitle162" begin="7283109166t" end="7301877916t" region="region0"><span style="style1">现在应该是因为肾上腺素飙升</span></p>
+<p xml:id="subtitle163" begin="7303963332t" end="7322732082t" region="region0"><span style="style1">才感觉不到太大的疼痛</span></p>
+<p xml:id="subtitle164" begin="7331490832t" end="7351093749t" region="region0"><span style="style1">但是 他伤成那样…</span></p>
+<p xml:id="subtitle165" begin="7361103749t" end="7392384999t" region="region0"><span style="style1">治疗一次 恐怕也没办法完全治愈</span></p>
+<p xml:id="subtitle166" begin="7407817082t" end="7418244166t" region="region0"><span style="style1">就算他赢了这一场</span></p>
+<p xml:id="subtitle167" begin="7424917499t" end="7445771666t" region="region0"><span style="style1">可能也没办法参加下一场比赛啊</span></p>
+<p xml:id="subtitle168" begin="7462037916t" end="7475801666t" region="region0"><span style="style1">操控个性</span></p>
+<p xml:id="subtitle169" begin="7480806666t" end="7517092916t" region="region0"><span style="style1">老是说因为我办不到</span><br/><span style="style1">所以没办法是行不通的</span></p>
+<p xml:id="subtitle170" begin="7538781249t" end="7562972082t" region="region0"><span style="style1">他的威力已经开始减弱了</span></p>
+<p xml:id="subtitle171" begin="7574233332t" end="7592167916t" region="region0"><span style="style1">并不是胡乱使用</span></p>
+<p xml:id="subtitle172" begin="7599675416t" end="7608434166t" region="region0"><span style="style1">为了获得胜利</span></p>
+<p xml:id="subtitle173" begin="7615524582t" end="7643052082t" region="region0"><span style="style1">这是他现阶段 能做到的最佳表现了</span></p>
+<p xml:id="subtitle174" begin="7663906249t" end="7677669999t" region="region0"><span style="style1">不过呢</span></p>
+<p xml:id="subtitle175" begin="7684760416t" end="7704780416t" region="region0"><span style="style1">就算伤口能够被治好</span></p>
+<p xml:id="subtitle176" begin="7708117082t" end="7731056666t" region="region0"><span style="style1">要自行承担带来的剧烈痛楚</span></p>
+<p xml:id="subtitle177" begin="7731890832t" end="7751493749t" region="region0"><span style="style1">也是需要相当大的觉悟</span></p>
+<p xml:id="subtitle178" begin="7766925832t" end="7792367916t" region="region0"><span style="style1">究竟是什么动力驱使他这么做？</span></p>
+<p xml:id="subtitle179" begin="7813222082t" end="7826151666t" region="region0"><span style="style1">欧尔麦特</span></p>
+<p xml:id="subtitle180" begin="7833242082t" end="7849925416t" region="region0"><span style="style1">我想成为像他那样的人</span></p>
+<p xml:id="subtitle181" begin="7861603749t" end="7872030832t" region="region0"><span style="style1">为了这个目标…</span></p>
+<p xml:id="subtitle182" begin="7875784582t" end="7896638749t" region="region0"><span style="style1">我得变强 强到能拿下第一名</span></p>
+<p xml:id="subtitle183" begin="7908317082t" end="7934176249t" region="region0"><span style="style1">跟你相比 这个动机或许很微不足道</span></p>
+<p xml:id="subtitle184" begin="7956698749t" end="7967959999t" region="region0"><span style="style1">握不起来</span></p>
+<p xml:id="subtitle185" begin="7989648332t" end="8006331666t" region="region0"><span style="style1">爆碎风</span></p>
+<p xml:id="subtitle186" begin="8064723332t" end="8085994582t" region="region0"><span style="style1">为什么要做到这种地步？</span></p>
+<p xml:id="subtitle187" begin="8093919166t" end="8114356249t" region="region0"><span style="style1">因为我想响应别人的期望</span></p>
+<p xml:id="subtitle188" begin="8134793332t" end="8146054582t" region="region0"><span style="style1">我想变成…</span></p>
+<p xml:id="subtitle189" begin="8150642499t" end="8166908749t" region="region0"><span style="style1">能笑着响应别人期望的…</span></p>
+<p xml:id="subtitle190" begin="8176084582t" end="8206114582t" region="region0"><span style="style1">超酷的英雄</span></p>
+<p xml:id="subtitle191" begin="8216958749t" end="8240315416t" region="region0"><span style="style1">我想成为这种英雄</span></p>
+<p xml:id="subtitle192" begin="8249074166t" end="8259501249t" region="region0"><span style="style1">焦冻…</span></p>
+<p xml:id="subtitle193" begin="8284109166t" end="8296204582t" region="region0"><span style="style1">所以</span></p>
+<p xml:id="subtitle194" begin="8313304999t" end="8324983332t" region="region0"><span style="style1">大家才会…</span></p>
+<p xml:id="subtitle195" begin="8329571249t" end="8351676666t" region="region0"><span style="style1">使出全力拼命战斗</span></p>
+<p xml:id="subtitle196" begin="8372947916t" end="8407565832t" region="region0"><span style="style1">你的遭遇 还有你的决心</span></p>
+<p xml:id="subtitle197" begin="8412153749t" end="8438012916t" region="region0"><span style="style1">那些都是我没办法想象跟体会的</span></p>
+<p xml:id="subtitle198" begin="8443434999t" end="8455113332t" region="region0"><span style="style1">但是…</span></p>
+<p xml:id="subtitle199" begin="8455947499t" end="8492233749t" region="region0"><span style="style1">想不使出全力拿到第一</span><br/><span style="style1">借此否定你爸爸</span></p>
+<p xml:id="subtitle200" begin="8501826666t" end="8521846666t" region="region0"><span style="style1">我只觉得你在开什么玩笑</span></p>
+<p xml:id="subtitle201" begin="8592750832t" end="8602760832t" region="region0"><span style="style1">站起来！</span></p>
+<p xml:id="subtitle202" begin="8605680416t" end="8624449166t" region="region0"><span style="style1">如果就这样倒下 别说欧尔麦特了</span></p>
+<p xml:id="subtitle203" begin="8627368750t" end="8656147500t" region="region0"><span style="style1">连杂碎敌人都对付不了</span></p>
+<p xml:id="subtitle204" begin="8656981666t" end="8679504166t" region="region0"><span style="style1">请您不要这样 他只有五岁</span></p>
+<p xml:id="subtitle205" begin="8685760416t" end="8708282916t" region="region0"><span style="style1">已经五岁了 不要碍事</span></p>
+<p xml:id="subtitle206" begin="8730805416t" end="8739564166t" region="region0"><span style="style1">妈妈…</span></p>
+<p xml:id="subtitle207" begin="8767925832t" end="8780021250t" region="region0"><span style="style1">少啰嗦</span></p>
+<p xml:id="subtitle208" begin="8819227082t" end="8837995832t" region="region0"><span style="style1">我不要 妈妈</span></p>
+<p xml:id="subtitle209" begin="8856347500t" end="8878452916t" region="region0"><span style="style1">我…</span></p>
+<p xml:id="subtitle210" begin="8882623750t" end="8907648750t" region="region0"><span style="style1">我以后才不要变得跟爸爸一样</span></p>
+<p xml:id="subtitle211" begin="8910568332t" end="8946854582t" region="region0"><span style="style1">我绝对不要变成像他那种</span><br/><span style="style1">会欺负妈妈的人</span></p>
+<p xml:id="subtitle212" begin="8962286666t" end="8994402082t" region="region0"><span style="style1">但是…你想成为英雄不是吗？</span></p>
+<p xml:id="subtitle213" begin="9054045000t" end="9075316250t" region="region0"><span style="style1">你可以…当英雄的</span></p>
+<p xml:id="subtitle214" begin="9087411666t" end="9115356250t" region="region0"><span style="style1">只要你有着清晰的未来蓝图</span></p>
+<p xml:id="subtitle215" begin="9119944166t" end="9147888750t" region="region0"><span style="style1">所以 我一定要赢</span></p>
+<p xml:id="subtitle216" begin="9160401250t" end="9176667500t" region="region0"><span style="style1">我要超越你</span></p>
+<p xml:id="subtitle217" begin="9292199582t" end="9302626666t" region="region0"><span style="style1">不要看 焦冻</span></p>
+<p xml:id="subtitle218" begin="9309717082t" end="9338912916t" region="region0"><span style="style1">那些人跟你是不同世界的人</span></p>
+<p xml:id="subtitle219" begin="9360601250t" end="9372696666t" region="region0"><span style="style1">妈</span></p>
+<p xml:id="subtitle220" begin="9383957916t" end="9398555832t" region="region0"><span style="style1">我变得好奇怪</span></p>
+<p xml:id="subtitle221" begin="9405646250t" end="9416073332t" region="region0"><span style="style1">我不行了</span></p>
+<p xml:id="subtitle222" begin="9421078332t" end="9450274166t" region="region0"><span style="style1">孩子越长大 越像那个人</span></p>
+<p xml:id="subtitle223" begin="9462786666t" end="9473630832t" region="region0"><span style="style1">焦冻的…</span></p>
+<p xml:id="subtitle224" begin="9479470000t" end="9495319166t" region="region0"><span style="style1">那孩子的左半边</span></p>
+<p xml:id="subtitle225" begin="9499072916t" end="9529937082t" region="region0"><span style="style1">有时候会让我打从心底觉得丑陋</span></p>
+<p xml:id="subtitle226" begin="9535359166t" end="9554127916t" region="region0"><span style="style1">我没办法养育他了</span></p>
+<p xml:id="subtitle227" begin="9555379166t" end="9571645416t" region="region0"><span style="style1">不能再养他了</span></p>
+<p xml:id="subtitle228" begin="9577484582t" end="9596670416t" region="region0"><span style="style1">妈…妈妈</span></p>
+<p xml:id="subtitle229" begin="9685926250t" end="9695519166t" region="region0"><span style="style1">我只是…</span></p>
+<p xml:id="subtitle230" begin="9732639582t" end="9744735000t" region="region0"><span style="style1">受不了</span></p>
+<p xml:id="subtitle231" begin="9748488750t" end="9768091666t" region="region0"><span style="style1">现在正是重要的时期</span></p>
+<p xml:id="subtitle232" begin="9775599166t" end="9788111666t" region="region0"><span style="style1">妈妈在哪里？</span></p>
+<p xml:id="subtitle233" begin="9820644166t" end="9851508332t" region="region0"><span style="style1">因为她伤害了你 我把她送进医院了</span></p>
+<p xml:id="subtitle234" begin="9878201666t" end="9893633750t" region="region0"><span style="style1">这都是你的错</span></p>
+<p xml:id="subtitle235" begin="9917824582t" end="9938678750t" region="region0"><span style="style1">都是你害妈妈变成那样</span></p>
+<p xml:id="subtitle236" begin="9962035416t" end="9981221250t" region="region0"><span style="style1">我要把这家伙</span></p>
+<p xml:id="subtitle237" begin="9996236250t" end="10028351666t" region="region0"><span style="style1">臭老爸的…力量</span></p>
+<p xml:id="subtitle238" begin="10042949582t" end="10069225832t" region="region0"><span style="style1">那不也是…你自己的力量吗？</span></p>
+<p xml:id="subtitle239" begin="10092999582t" end="10108431666t" region="region0"><span style="style1">是啊 说得没错</span></p>
+<p xml:id="subtitle240" begin="10111351250t" end="10147220416t" region="region0"><span style="style1">所谓的个性</span><br/><span style="style1">会从父母那边传承给孩子</span></p>
+<p xml:id="subtitle241" begin="10155979166t" end="10164737916t" region="region0"><span style="style1">不过…</span></p>
+<p xml:id="subtitle242" begin="10167657500t" end="10203109582t" region="region0"><span style="style1">事实上重要的并不是血缘这层关系</span></p>
+<p xml:id="subtitle243" begin="10205612082t" end="10218124582t" region="region0"><span style="style1">必须要认知到…</span></p>
+<p xml:id="subtitle244" begin="10230220000t" end="10256913332t" region="region0"><span style="style1">这就是自己 是自己的血肉</span></p>
+<p xml:id="subtitle245" begin="10261918332t" end="10290697082t" region="region0"><span style="style1">我常说的那句话 也包含了这个意思</span></p>
+<p xml:id="subtitle246" begin="10306963332t" end="10320727082t" region="region0"><span style="style1">因为我来了</span></p>
+<p xml:id="subtitle247" begin="10329902916t" end="10339912916t" region="region0"><span style="style1">就是这样</span></p>
+<p xml:id="subtitle248" begin="10349505832t" end="10383289582t" region="region0"><span style="style1">但是…你想成为英雄不是吗？</span></p>
+<p xml:id="subtitle249" begin="10393716666t" end="10414570832t" region="region0"><span style="style1">你可以…当英雄的</span></p>
+<p xml:id="subtitle250" begin="10427083332t" end="10457113332t" region="region0"><span style="style1">不知道从什么时候起…我就忘记了</span></p>
+<p xml:id="subtitle251" begin="10472545416t" end="10492982500t" region="region0"><span style="style1">你没有必要被血缘束缚</span></p>
+<p xml:id="subtitle252" begin="10510917082t" end="10528017500t" region="region0"><span style="style1">只要成为自己…</span></p>
+<p xml:id="subtitle253" begin="10535942082t" end="10549705832t" region="region0"><span style="style1">想成为的人就好</span></p>
+<p xml:id="subtitle254" begin="10579318750t" end="10595585000t" region="region0"><span style="style1">这…这是</span></p>
+<p xml:id="subtitle255" begin="10600590000t" end="10615605000t" region="region0"><span style="style1">热浪来了</span></p>
+<p xml:id="subtitle256" begin="10620610000t" end="10633956666t" region="region0"><span style="style1">战斗的时候…</span></p>
+<p xml:id="subtitle257" begin="10640212916t" end="10660232916t" region="region0"><span style="style1">我是绝对不会使用左边的力量</span></p>
+<p xml:id="subtitle258" begin="10672328332t" end="10682755416t" region="region0"><span style="style1">他使用了</span></p>
+<p xml:id="subtitle259" begin="10694850832t" end="10716122082t" region="region0"><span style="style1">竟然让他用了左半边的力量</span></p>
+<p xml:id="subtitle260" begin="10724046666t" end="10734473750t" region="region0"><span style="style1">绿谷少年</span></p>
+<p xml:id="subtitle261" begin="10740730000t" end="10752825416t" region="region0"><span style="style1">难道你这么做…</span></p>
+<p xml:id="subtitle262" begin="10755327916t" end="10773679582t" region="region0"><span style="style1">是打算拯救轰少年吗？</span></p>
+<p xml:id="subtitle263" begin="10791197082t" end="10809548750t" region="region0"><span style="style1">你明明就想获胜</span></p>
+<p xml:id="subtitle264" begin="10828317500t" end="10839995832t" region="region0"><span style="style1">可恶</span></p>
+<p xml:id="subtitle265" begin="10855010832t" end="10878784582t" region="region0"><span style="style1">竟然还助对手一臂之力</span></p>
+<p xml:id="subtitle266" begin="10885040832t" end="10915905000t" region="region0"><span style="style1">在开玩笑的人到底是谁？</span></p>
+<p xml:id="subtitle267" begin="10952191250t" end="10964286666t" region="region0"><span style="style1">我也想要…</span></p>
+<p xml:id="subtitle268" begin="10973879582t" end="10986392082t" region="region0"><span style="style1">成为英雄</span></p>
+<p xml:id="subtitle269" begin="11084823750t" end="11104843750t" region="region0"><span style="style1">焦冻</span></p>
+<p xml:id="subtitle270" begin="11122361250t" end="11145300832t" region="region0"><span style="style1">你终于接受自己了吗？</span></p>
+<p xml:id="subtitle271" begin="11147386250t" end="11163652500t" region="region0"><span style="style1">就是要这样</span></p>
+<p xml:id="subtitle272" begin="11171577082t" end="11189928750t" region="region0"><span style="style1">你从现在起 踏上起点</span></p>
+<p xml:id="subtitle273" begin="11198270416t" end="11222878332t" region="region0"><span style="style1">继承我的血脉 超越我吧！</span></p>
+<p xml:id="subtitle274" begin="11227883332t" end="11258330416t" region="region0"><span style="style1">我的野心将由你来实现</span></p>
+<p xml:id="subtitle275" begin="11321310000t" end="11348420416t" region="region0"><span style="style1">奋进人先生突然激励起孩子了吗？</span></p>
+<p xml:id="subtitle276" begin="11354676666t" end="11365520832t" region="region0"><span style="style1">他这么溺爱孩子啊</span></p>
+<p xml:id="subtitle277" begin="11394299582t" end="11405560832t" region="region0"><span style="style1">好厉害</span></p>
+<p xml:id="subtitle278" begin="11412651250t" end="11428500416t" region="region0"><span style="style1">你在笑什么？</span></p>
+<p xml:id="subtitle279" begin="11438927500t" end="11474379582t" region="region0"><span style="style1">不但伤痕累累 还身处于这种状况下</span></p>
+<p xml:id="subtitle280" begin="11482721250t" end="11493982500t" region="region0"><span style="style1">你根本疯了</span></p>
+<p xml:id="subtitle281" begin="11514419582t" end="11535690832t" region="region0"><span style="style1">后果会怎么样 我可不管</span></p>
+<p xml:id="subtitle282" begin="11647469166t" end="11656227916t" region="region0"><span style="style1">午夜时分</span></p>
+<p xml:id="subtitle283" begin="11659147500t" end="11676247916t" region="region0"><span style="style1">要是再这样下去</span></p>
+<p xml:id="subtitle284" begin="11681252916t" end="11695850832t" region="region0"><span style="style1">他的身体会撑不住</span></p>
+<p xml:id="subtitle285" begin="11749654582t" end="11762167082t" region="region0"><span style="style1">尽可能接近他</span></p>
+<p xml:id="subtitle286" begin="11771760000t" end="11783855416t" region="region0"><span style="style1">竭尽全力</span></p>
+<p xml:id="subtitle287" begin="11788860416t" end="11808880416t" region="region0"><span style="style1">有本事就使出全力来啊</span></p>
+<p xml:id="subtitle288" begin="11873111250t" end="11882287082t" region="region0"><span style="style1">绿谷</span></p>
+<p xml:id="subtitle289" begin="11921492916t" end="11932337082t" region="region0"><span style="style1">谢谢你</span></p>
+<p xml:id="subtitle290" begin="12010748750t" end="12020758750t" region="region0"><span style="style1">等等…</span></p>
+<p xml:id="subtitle291" begin="12030351666t" end="12044115416t" region="region0"><span style="style1">是怎样啦？</span></p>
+<p xml:id="subtitle292" begin="12052040000t" end="12065386666t" region="region0"><span style="style1">真的假的啊？</span></p>
+<p xml:id="subtitle293" begin="12069974582t" end="12083321250t" region="region0"><span style="style1">情况到底怎么样了？</span></p>
+<p xml:id="subtitle294" begin="12286857916t" end="12316887916t" region="region0"><span style="style1">虽然说威力并不是越大越好</span></p>
+<p xml:id="subtitle295" begin="12328566250t" end="12341495832t" region="region0"><span style="style1">但还真惊人啊</span></p>
+<p xml:id="subtitle296" begin="12346917916t" end="12363184166t" region="region0"><span style="style1">拆房子啊</span></p>
+<p xml:id="subtitle297" begin="12365686666t" end="12386540832t" region="region0"><span style="style1">你的班级到底怎么搞的啊？</span></p>
+<p xml:id="subtitle298" begin="12389043332t" end="12422827082t" region="region0"><span style="style1">先前充分冷却的空气</span><br/><span style="style1">突然在瞬间被加热</span></p>
+<p xml:id="subtitle299" begin="12423661250t" end="12435339582t" region="region0"><span style="style1">当然就膨胀了</span></p>
+<p xml:id="subtitle300" begin="12439510416t" end="12460364582t" region="region0"><span style="style1">所以才会产生爆风吗？</span></p>
+<p xml:id="subtitle301" begin="12462032916t" end="12477882082t" region="region0"><span style="style1">温度到底多高啊？</span></p>
+<p xml:id="subtitle302" begin="12484555416t" end="12525012500t" region="region0"><span style="style1">什…什么都看不见</span><br/><span style="style1">比赛结果怎么样了？</span></p>
+<p xml:id="subtitle303" begin="12717705000t" end="12739810416t" region="region0"><span style="style1">绿…绿谷同学</span></p>
+<p xml:id="subtitle304" begin="12742730000t" end="12752322916t" region="region0"><span style="style1">出界</span></p>
+<p xml:id="subtitle305" begin="12801538750t" end="12833237082t" region="region0"><span style="style1">由轰同学 晋级准决赛</span></p>
+<p xml:id="subtitle306" begin="12846166666t" end="12899553332t" region="region1"><span style="style1">剧名：轰焦冻 原点</span></p>
+<p xml:id="subtitle307" begin="13800453332t" end="13814217082t" region="region0"><span style="style1">（下集预告）</span></p>
+<p xml:id="subtitle308" begin="13815051249t" end="13845081249t" region="region0"><span style="style1">是 我是有幸担任</span><br/><span style="style1">下集预告解说的A班班长</span></p>
+<p xml:id="subtitle309" begin="13847166666t" end="13870523332t" region="region0"><span style="style1">我叫饭田天哉</span></p>
+<p xml:id="subtitle310" begin="13871357499t" end="13890960416t" region="region0"><span style="style1">跟之前的预告开场几乎一样</span></p>
+<p xml:id="subtitle311" begin="13891794582t" end="13922241666t" region="region0"><span style="style1">绿谷同学</span><br/><span style="style1">我发誓 会连你的份一起加油</span></p>
+<p xml:id="subtitle312" begin="13924327082t" end="13933085832t" region="region0"><span style="style1">挺进决赛的</span></p>
+<p xml:id="subtitle313" begin="13935588332t" end="13957276666t" region="region0"><span style="style1">-饭田同学一定办得到</span><br/><span style="style1">-是啊</span></p>
+<p xml:id="subtitle314" begin="13961447499t" end="13994814166t" region="region0"><span style="style1">都到这一步了 就要获胜</span><br/><span style="style1">跟哥哥报告这个好消息</span></p>
+<p xml:id="subtitle315" begin="13996482499t" end="14016502499t" region="region0"><span style="style1">下集 《饭田同学 加油》</span></p>
+<p xml:id="subtitle316" begin="14018170832t" end="14038190832t" region="region0"><span style="style1">喂 妈 哥怎么了？</span></p>
+<p xml:id="subtitle317" begin="14040693332t" end="14059044999t" region="region0"><span style="style1">天才哥哥究竟出了什么事？</span></p>
+<p xml:id="subtitle318" begin="14063215832t" end="14077396666t" region="region0"><span style="style1">更向前迈进吧！</span></p>
+<p xml:id="subtitle319" begin="14078230832t" end="14094914166t" region="region0"><span style="style1">超越极致！</span></p>
+</div>
+</body>
+</tt>

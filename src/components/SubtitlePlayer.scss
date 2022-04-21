@@ -23,7 +23,7 @@
     font-size: 1em;
 
     div {
-      margin: 15px;
+      margin: 30px;
     }
 
     p {
@@ -34,24 +34,27 @@
       font-weight: bold;
     }
   }
-
-  button#PlayBtn {
-    margin: 20px;
-    min-width: 120px;
-    font-size: 2em;
-  }
-  #backward1sec-btn,
-  #forward1sec-btn {
-    margin: auto 20px;
-    width: 45px;
-    height: 45px;
-    font-weight:700;
-  }
-  #backward05sec-btn,
-  #forward05sec-btn {
-    margin: auto 20px;
-    width: 40px;
-    height: 40px;
+  .button-bar {
+    padding-bottom: 1%;
+    #PlayBtn {
+      min-width: 100px;
+      font-size: 1.6em;
+    }
+    #backward1sec-btn,
+    #forward1sec-btn {
+      width: 90%;
+      max-width: 80px;
+      min-width: 40px;
+      height: 45px;
+      font-weight: 700;
+    }
+    #backward05sec-btn,
+    #forward05sec-btn {
+      width: 90%;
+      max-width: 80px;
+      min-width: 40px;
+      height: 40px;
+    }
   }
 
   #inputTime {
