@@ -159,94 +159,102 @@ export default function SubtitlePlayer() {
   }, [inputTime]);
 
   return (
-    <div id="subtitlePlayer" className="bg-light">
-      <div className=".container h-100">
-        <div className="row align-items-start h-25">
-          <div id="videoTitle">
-            <h3>{videoTitle}</h3>
-          </div>
-          <div id="playerTime">
-            <p>
-              <span className="time-sec">
-                {Math.trunc(playerTime) + " Sec "}
-              </span>
-              <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
-            </p>
-            <p className="time">{secondsToHms(totalDuration - playerTime)}</p>
-            <div>
-              {!isPlaying ? (
-                <input
-                  id="inputTime"
-                  type="number"
-                  className="form-control"
-                  onChange={(e) => setInputTime(e.target.value)}
-                />
-              ) : (
-                <input type="hidden"></input>
-              )}
+    <div className="app-body container bg-light">
+      <div className="app-body row">
+        <div id="subtitlePlayer" className="col align-self-center">
+          <div className=".container h-100">
+            <div className="row align-items-start h-25">
+              <div id="videoTitle">
+                <h3>{videoTitle}</h3>
+              </div>
+              <div id="playerTime">
+                <p>
+                  <span className="time-sec">
+                    {Math.trunc(playerTime) + " Sec "}
+                  </span>
+                  <span className="time-ms">
+                    {Math.trunc(playerTime * 1000)}
+                  </span>
+                </p>
+                <p className="time">
+                  {secondsToHms(totalDuration - playerTime)}
+                </p>
+                <div>
+                  {!isPlaying ? (
+                    <input
+                      id="inputTime"
+                      type="number"
+                      className="form-control"
+                      onChange={(e) => setInputTime(e.target.value)}
+                    />
+                  ) : (
+                    <input type="hidden"></input>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="row align-items-center h-50">
-          <div id="subtitleDisplay">
-            <div id="subtitleText_previous">
-              <p>{englishSubtitle_previous}</p>
-              <p>{chineseSubtitle_previous}</p>
+            <div className="row align-items-center h-50">
+              <div id="subtitleDisplay">
+                <div id="subtitleText_previous">
+                  <p>{englishSubtitle_previous}</p>
+                  <p>{chineseSubtitle_previous}</p>
+                </div>
+                <div id="subtitleText_present">
+                  <p>{englishSubtitle_present}</p>
+                  <p>{chineseSubtitle_present}</p>
+                </div>
+              </div>
             </div>
-            <div id="subtitleText_present">
-              <p>{englishSubtitle_present}</p>
-              <p>{chineseSubtitle_present}</p>
+            <div className="row align-items-end h-25 button-bar">
+              <div className="col">
+                <button
+                  id="backward1sec-btn"
+                  className="btn btn-warning"
+                  onClick={() => timer.current.backword(1)}
+                >
+                  &#171;
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  id="backward05sec-btn"
+                  className="btn btn-warning"
+                  onClick={() => timer.current.backword(0.5)}
+                >
+                  &#8249;
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  id="PlayBtn"
+                  type="button"
+                  className={
+                    isPlaying ? "btn btn-outline-success" : "btn btn-success"
+                  }
+                  onClick={() => setIsPlaying(!isPlaying)}
+                >
+                  {isPlaying ? "Pause" : "Play"}
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  id="forward05sec-btn"
+                  className="btn btn-warning"
+                  onClick={() => timer.current.forward(0.5)}
+                >
+                  &#8250;
+                </button>
+              </div>
+              <div className="col">
+                <button
+                  id="forward1sec-btn"
+                  className="btn btn-warning"
+                  onClick={() => timer.current.forward(1)}
+                >
+                  &#187;
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="row align-items-end h-25 button-bar">
-          <div className="col">
-            <button
-              id="backward1sec-btn"
-              className="btn btn-warning"
-              onClick={() => timer.current.backword(1)}
-            >
-              &#171;
-            </button>
-          </div>
-          <div className="col">
-            <button
-              id="backward05sec-btn"
-              className="btn btn-warning"
-              onClick={() => timer.current.backword(0.5)}
-            >
-              &#8249;
-            </button>
-          </div>
-          <div className="col">
-            <button
-              id="PlayBtn"
-              type="button"
-              className={
-                isPlaying ? "btn btn-outline-success" : "btn btn-success"
-              }
-              onClick={() => setIsPlaying(!isPlaying)}
-            >
-              {isPlaying ? "Pause" : "Play"}
-            </button>
-          </div>
-          <div className="col">
-            <button
-              id="forward05sec-btn"
-              className="btn btn-warning"
-              onClick={() => timer.current.forward(0.5)}
-            >
-              &#8250;
-            </button>
-          </div>
-          <div className="col">
-            <button
-              id="forward1sec-btn"
-              className="btn btn-warning"
-              onClick={() => timer.current.forward(1)}
-            >
-              &#187;
-            </button>
           </div>
         </div>
       </div>

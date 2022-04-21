@@ -1,5 +1,11 @@
-#subtitlePlayer {
+.app-body{
   height: 100%;
+  margin: 0;
+  max-width: 100%;
+}
+
+#subtitlePlayer {
+  height: 90%;
 
   #videoTitle {
     padding: 20px;
@@ -23,7 +29,7 @@
     font-size: 1em;
 
     div {
-      margin: 30px;
+      margin: 30px 10px;
     }
 
     p {
@@ -35,7 +41,11 @@
     }
   }
   .button-bar {
-    padding-bottom: 1%;
+    padding-bottom: 5%;
+    .col {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
     #PlayBtn {
       min-width: 100px;
       font-size: 1.6em;
