@@ -25,14 +25,16 @@ export default function SubtitlePlayer() {
   const totalDuration = 1411;
   const music = useRef(new Audio("/sound_of_silence.mp3"));
 
-  // const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     window.addEventListener("blur", () => {
       setIsPlaying(true);
     });
 
+    setMsg(navigator.userAgent);
     if (!navigator.userAgent.includes("iPad")) {
+      setMsg(navigator.userAgent + " set l");
       window.addEventListener("focus", () => {
         setIsPlaying(false);
       });
@@ -182,6 +184,7 @@ export default function SubtitlePlayer() {
                 <h3>{videoTitle}</h3>
               </div>
               <div id="playerTime">
+                <p>{msg}</p>
                 <p>
                   <span className="time-sec">
                     {Math.trunc(playerTime) + " Sec "}
