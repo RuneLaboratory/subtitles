@@ -11,6 +11,12 @@
     padding: 10px;
   }
 
+  .msg{
+    font-size: 0.6em;
+    white-space:nowrap;
+    overflow: scroll;
+  }
+
   #playerTime {
     .time-ms {
       font-size: 0.7em;

@@ -33,8 +33,8 @@ export default function SubtitlePlayer() {
     });
 
     setMsg(navigator.userAgent);
-    if (!navigator.userAgent.includes("iPad")) {
-      setMsg(navigator.userAgent + " set l");
+    if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
+      setMsg(navigator.userAgent + " . ");
       window.addEventListener("focus", () => {
         setIsPlaying(false);
       });
@@ -183,8 +183,8 @@ export default function SubtitlePlayer() {
               <div id="videoTitle">
                 <h3>{videoTitle}</h3>
               </div>
+              <p className="msg">{msg}</p>
               <div id="playerTime">
-                <p>{msg}</p>
                 <p>
                   <span className="time-sec">
                     {Math.trunc(playerTime) + " Sec "}
