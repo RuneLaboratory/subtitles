@@ -23,8 +23,21 @@ export default function SubtitlePlayer() {
   // const [chineseSubtitle_next, setChineseSubtitle_next] = useState("\u00A0");
   const [inputTime, setInputTime] = useState();
   const totalDuration = 1411;
+  const music = useRef(new Audio("/sound_of_silence.mp3"));
+
+  // const [msg, setMsg] = useState("");
 
   useEffect(() => {
+    window.addEventListener("blur", () => {
+      setIsPlaying(true);
+    });
+
+    if (!navigator.userAgent.includes("iPad")) {
+      window.addEventListener("focus", () => {
+        setIsPlaying(false);
+      });
+    }
+
     timer.current.onTick = (time) => {
       setplayerTime(time);
     };
@@ -57,6 +70,7 @@ export default function SubtitlePlayer() {
     if (isPlaying) {
       timerRef.start();
     } else {
+      music.current.play();
       timerRef.pause();
     }
 
