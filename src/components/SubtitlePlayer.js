@@ -153,7 +153,7 @@ export default function SubtitlePlayer() {
   }, [renderCNSubtitle]);
 
   useEffect(() => {
-    if (inputTime) {
+    if (inputTime && inputTime >= 0) {
       timer.current.setCurrentTime(hmsTosec(inputTime));
     }
   }, [inputTime]);
@@ -186,6 +186,7 @@ export default function SubtitlePlayer() {
                       type="number"
                       className="form-control"
                       onChange={(e) => setInputTime(e.target.value)}
+                      onFocus={(e) => setInputTime(e.target.select())}
                     />
                   ) : (
                     <input type="hidden"></input>

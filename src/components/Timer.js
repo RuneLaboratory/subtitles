@@ -81,6 +81,10 @@ export function secondsToHms(d) {
 }
 
 export function hmsTosec(d) {
+  if (d < 0) {
+    return 0;
+  }
+
   let s = Number(d.slice(-2));
   d = d.slice(0, -2);
   let m = Number(d.slice(-2));
