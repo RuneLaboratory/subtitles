@@ -23,20 +23,35 @@ export default function SubtitlePlayer() {
   // const [chineseSubtitle_next, setChineseSubtitle_next] = useState("\u00A0");
   const [inputTime, setInputTime] = useState();
   const totalDuration = 1411;
-  const music = useRef(new Audio("/sound_of_silence.mp3"));
-
+  // const music = useRef(new Audio("/sound_of_silence.mp3"));
+  const [enableAutoPlay, setEnableAutoPlay] = useState(false);
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
     window.addEventListener("blur", () => {
-      setIsPlaying(true);
+      setEnableAutoPlay((prev) => {
+        if (prev) {
+          setIsPlaying(true);
+        }
+        return prev;
+      });
     });
 
     setMsg(navigator.userAgent);
-    if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
+    if (
+      !(
+        navigator.userAgent.includes("iPad") ||
+        navigator.userAgent.includes("Mac")
+      )
+    ) {
       setMsg(navigator.userAgent + " . ");
       window.addEventListener("focus", () => {
-        setIsPlaying(false);
+        setEnableAutoPlay((prev) => {
+          if (prev) {
+            setIsPlaying(false);
+          }
+          return prev;
+        });
       });
     }
 
@@ -72,7 +87,9 @@ export default function SubtitlePlayer() {
     if (isPlaying) {
       timerRef.start();
     } else {
-      music.current.play();
+      // if (enableAutoPlay) {
+      //   music.current.play();
+      // }
       timerRef.pause();
     }
 
@@ -81,7 +98,7 @@ export default function SubtitlePlayer() {
     return () => {
       timerRef.pause();
     };
-  }, [isPlaying]);
+  }, [isPlaying, enableAutoPlay]);
 
   useEffect(() => {
     let eIndexToDisplay = englishSubtitleList.current.findIndex((subtitle) => {
@@ -179,6 +196,14 @@ export default function SubtitlePlayer() {
       <div className="app-body row">
         <div id="subtitlePlayer" className="col align-self-center">
           <div className=".container h-100">
+            <input
+              className="position-absolute top-0 end-0 form-check-input"
+              type="checkbox"
+              value=""
+              id="enableAutoPlay"
+              checked={enableAutoPlay}
+              onChange={() => setEnableAutoPlay(!enableAutoPlay)}
+            ></input>
             <div className="row align-items-start h-25">
               <div id="videoTitle">
                 <h3>{videoTitle}</h3>

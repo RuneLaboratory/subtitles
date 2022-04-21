@@ -7,13 +7,17 @@
 #subtitlePlayer {
   height: 90%;
 
+  #enableAutoPlay {
+    margin: 12px;
+  }
+
   #videoTitle {
     padding: 10px;
   }
 
-  .msg{
+  .msg {
     font-size: 0.6em;
-    white-space:nowrap;
+    white-space: nowrap;
     overflow: scroll;
   }
 
