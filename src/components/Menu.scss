@@ -1,3 +1,12 @@
-#menu{
-    margin: 2% 5%;
+#menu {
+  padding: 2% 5%;
+//   height: 100%;
+  overflow: scroll;
+
+  .card{
+      h5{
+          font-size: 1.2em;
+          font-weight: bold;
+      }
+  }
 }

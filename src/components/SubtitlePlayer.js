@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Timer, { secondsToHms, hmsTosec } from "./Timer";
 import "./SubtitlePlayer.scss";
 
-export default function SubtitlePlayer() {
+export default function SubtitlePlayer(props) {
   const timer = useRef(new Timer());
   const [playerTime, setplayerTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,14 +11,10 @@ export default function SubtitlePlayer() {
   const chineseSubtitleList = useRef([]);
   const [englishSubtitleIndex, setEnglishSubtitleIndex] = useState(-1);
   const [chineseSubtitleIndex, setChinsesSubtitleIndex] = useState(-1);
-  const [englishSubtitle_previous, setEnglishSubtitle_previous] =
-    useState("\u00A0");
-  const [chineseSubtitle_previous, setChineseSubtitle_previous] =
-    useState("\u00A0");
-  const [englishSubtitle_present, setEnglishSubtitle_present] =
-    useState("\u00A0");
-  const [chineseSubtitle_present, setChineseSubtitle_present] =
-    useState("\u00A0");
+  const [englishSubtitle_previous, setEnglishSubtitle_previous] = useState("\u00A0");
+  const [chineseSubtitle_previous, setChineseSubtitle_previous] = useState("\u00A0");
+  const [englishSubtitle_present, setEnglishSubtitle_present] = useState("\u00A0");
+  const [chineseSubtitle_present, setChineseSubtitle_present] = useState("\u00A0");
   // const [englishSubtitle_next, setEnglishSubtitle_next] = useState("\u00A0");
   // const [chineseSubtitle_next, setChineseSubtitle_next] = useState("\u00A0");
   const [inputTime, setInputTime] = useState();
@@ -28,6 +24,8 @@ export default function SubtitlePlayer() {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
+    console.log(props);
+
     window.addEventListener("blur", () => {
       setEnableAutoPlay((prev) => {
         if (prev) {
@@ -38,12 +36,7 @@ export default function SubtitlePlayer() {
     });
 
     setMsg(navigator.userAgent);
-    if (
-      !(
-        navigator.userAgent.includes("iPad") ||
-        navigator.userAgent.includes("Mac")
-      )
-    ) {
+    if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
       setMsg(navigator.userAgent + " . ");
       window.addEventListener("focus", () => {
         setEnableAutoPlay((prev) => {
@@ -66,7 +59,6 @@ export default function SubtitlePlayer() {
         let xmlDoc = parser.parseFromString(data, "text/xml");
         let subtitles = convertXmlToSubtitle(xmlDoc);
         englishSubtitleList.current = subtitles;
-        console.log(subtitles);
       })
       .catch(console.error);
 
@@ -77,7 +69,6 @@ export default function SubtitlePlayer() {
         let xmlDoc = parser.parseFromString(data, "text/xml");
         let subtitles = convertXmlToSubtitle(xmlDoc);
         chineseSubtitleList.current = subtitles;
-        console.log(subtitles);
       })
       .catch(console.error);
   }, []);
@@ -102,19 +93,13 @@ export default function SubtitlePlayer() {
 
   useEffect(() => {
     let eIndexToDisplay = englishSubtitleList.current.findIndex((subtitle) => {
-      return (
-        subtitle.begin < Math.trunc(playerTime * 1000) &&
-        subtitle.end > Math.trunc(playerTime * 1000)
-      );
+      return subtitle.begin < Math.trunc(playerTime * 1000) && subtitle.end > Math.trunc(playerTime * 1000);
     });
     if (englishSubtitleIndex !== eIndexToDisplay) {
       setEnglishSubtitleIndex(eIndexToDisplay);
     }
     let cIndexToDisplay = chineseSubtitleList.current.findIndex((subtitle) => {
-      return (
-        subtitle.begin < Math.trunc(playerTime * 1000) &&
-        subtitle.end > Math.trunc(playerTime * 1000)
-      );
+      return subtitle.begin < Math.trunc(playerTime * 1000) && subtitle.end > Math.trunc(playerTime * 1000);
     });
 
     if (chineseSubtitleIndex !== cIndexToDisplay) {
@@ -126,8 +111,7 @@ export default function SubtitlePlayer() {
   const renderENSubtitle = useCallback(() => {
     if (englishSubtitleIndex >= 0) {
       setEnglishSubtitle_previous(englishSubtitle_present);
-      let valueToDisplay =
-        englishSubtitleList.current[englishSubtitleIndex].value;
+      let valueToDisplay = englishSubtitleList.current[englishSubtitleIndex].value;
       let nextSubtitle = englishSubtitleList.current[englishSubtitleIndex + 1];
       if (
         nextSubtitle &&
@@ -136,7 +120,6 @@ export default function SubtitlePlayer() {
       ) {
         valueToDisplay = valueToDisplay + " " + nextSubtitle.value;
       }
-      console.log("value to display " + valueToDisplay);
       setEnglishSubtitle_present(valueToDisplay);
     } else {
       setTimeout(() => {
@@ -154,8 +137,7 @@ export default function SubtitlePlayer() {
   const renderCNSubtitle = useCallback(() => {
     if (chineseSubtitleIndex >= 0) {
       setChineseSubtitle_previous(chineseSubtitle_present);
-      let valueToDisplay =
-        chineseSubtitleList.current[chineseSubtitleIndex].value;
+      let valueToDisplay = chineseSubtitleList.current[chineseSubtitleIndex].value;
       let nextSubtitle = chineseSubtitleList.current[chineseSubtitleIndex + 1];
       if (
         nextSubtitle &&
@@ -192,112 +174,84 @@ export default function SubtitlePlayer() {
   }, [inputTime]);
 
   return (
-    <div className="app-body container">
-      <div className="app-body row">
-        <div id="subtitlePlayer" className="col align-self-center">
-          <div className=".container h-100">
-            <input
-              className="position-absolute top-0 end-0 form-check-input"
-              type="checkbox"
-              value=""
-              id="enableAutoPlay"
-              checked={enableAutoPlay}
-              onChange={() => setEnableAutoPlay(!enableAutoPlay)}
-            ></input>
-            <div className="row align-items-start h-25">
-              <div id="videoTitle">
-                <h3>{videoTitle}</h3>
-              </div>
-              <p className="msg">{msg}</p>
-              <div id="playerTime">
-                <p>
-                  <span className="time-sec">
-                    {Math.trunc(playerTime) + " Sec "}
-                  </span>
-                  <span className="time-ms">
-                    {Math.trunc(playerTime * 1000)}
-                  </span>
-                </p>
-                <p className="time">
-                  {secondsToHms(totalDuration - playerTime)}
-                </p>
-                <div>
-                  {!isPlaying ? (
-                    <input
-                      id="inputTime"
-                      type="number"
-                      className="form-control"
-                      onChange={(e) => setInputTime(e.target.value)}
-                      onFocus={(e) => setInputTime(e.target.select())}
-                    />
-                  ) : (
-                    <input type="hidden"></input>
-                  )}
-                </div>
-              </div>
+    <div id="subtitlePlayer" className="col align-self-center">
+      <div className=".container h-100">
+        <input
+          className="position-absolute top-0 end-0 form-check-input"
+          type="checkbox"
+          value=""
+          id="enableAutoPlay"
+          checked={enableAutoPlay}
+          onChange={() => setEnableAutoPlay(!enableAutoPlay)}
+        ></input>
+        <div className="row align-items-start h-25">
+          <div id="videoTitle">
+            <h3>{props.subtitle.Title}</h3>
+          </div>
+          <p className="msg">{msg}</p>
+          <div id="playerTime">
+            <p>
+              <span className="time-sec">{Math.trunc(playerTime) + " Sec "}</span>
+              <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
+            </p>
+            <p className="time">{secondsToHms(totalDuration - playerTime)}</p>
+            <div>
+              {!isPlaying ? (
+                <input
+                  id="inputTime"
+                  type="number"
+                  className="form-control"
+                  onChange={(e) => setInputTime(e.target.value)}
+                  onFocus={(e) => setInputTime(e.target.select())}
+                />
+              ) : (
+                <input type="hidden"></input>
+              )}
             </div>
-            <div className="row align-items-center h-50">
-              <div id="subtitleDisplay">
-                <div id="subtitleText_previous">
-                  <p>{englishSubtitle_previous}</p>
-                  <p>{chineseSubtitle_previous}</p>
-                </div>
-                <div id="subtitleText_present">
-                  <p>{englishSubtitle_present}</p>
-                  <p>{chineseSubtitle_present}</p>
-                </div>
-              </div>
+          </div>
+        </div>
+        <div className="row align-items-center h-50">
+          <div id="subtitleDisplay">
+            <div id="subtitleText_previous">
+              <p>{englishSubtitle_previous}</p>
+              <p>{chineseSubtitle_previous}</p>
             </div>
-            <div className="row align-items-end h-25 button-bar">
-              <div className="col">
-                <button
-                  id="backward1sec-btn"
-                  className="btn btn-warning"
-                  onClick={() => timer.current.backword(1)}
-                >
-                  &#171;
-                </button>
-              </div>
-              <div className="col">
-                <button
-                  id="backward05sec-btn"
-                  className="btn btn-warning"
-                  onClick={() => timer.current.backword(0.5)}
-                >
-                  &#8249;
-                </button>
-              </div>
-              <div className="col">
-                <button
-                  id="PlayBtn"
-                  type="button"
-                  className={
-                    isPlaying ? "btn btn-outline-success" : "btn btn-success"
-                  }
-                  onClick={() => setIsPlaying(!isPlaying)}
-                >
-                  {isPlaying ? "Pause" : "Play"}
-                </button>
-              </div>
-              <div className="col">
-                <button
-                  id="forward05sec-btn"
-                  className="btn btn-warning"
-                  onClick={() => timer.current.forward(0.5)}
-                >
-                  &#8250;
-                </button>
-              </div>
-              <div className="col">
-                <button
-                  id="forward1sec-btn"
-                  className="btn btn-warning"
-                  onClick={() => timer.current.forward(1)}
-                >
-                  &#187;
-                </button>
-              </div>
+            <div id="subtitleText_present">
+              <p>{englishSubtitle_present}</p>
+              <p>{chineseSubtitle_present}</p>
             </div>
+          </div>
+        </div>
+        <div className="row align-items-end h-25 button-bar">
+          <div className="col">
+            <button id="backward1sec-btn" className="btn btn-warning" onClick={() => timer.current.backword(1)}>
+              &#171;
+            </button>
+          </div>
+          <div className="col">
+            <button id="backward05sec-btn" className="btn btn-warning" onClick={() => timer.current.backword(0.5)}>
+              &#8249;
+            </button>
+          </div>
+          <div className="col">
+            <button
+              id="PlayBtn"
+              type="button"
+              className={isPlaying ? "btn btn-outline-success" : "btn btn-success"}
+              onClick={() => setIsPlaying(!isPlaying)}
+            >
+              {isPlaying ? "Pause" : "Play"}
+            </button>
+          </div>
+          <div className="col">
+            <button id="forward05sec-btn" className="btn btn-warning" onClick={() => timer.current.forward(0.5)}>
+              &#8250;
+            </button>
+          </div>
+          <div className="col">
+            <button id="forward1sec-btn" className="btn btn-warning" onClick={() => timer.current.forward(1)}>
+              &#187;
+            </button>
           </div>
         </div>
       </div>
@@ -306,24 +260,18 @@ export default function SubtitlePlayer() {
 }
 
 function convertXmlToSubtitle(xmlDoc) {
-  let tickRate = xmlDoc
-    .getElementsByTagName("tt")[0]
-    .getAttribute("ttp:tickRate");
+  let tickRate = xmlDoc.getElementsByTagName("tt")[0].getAttribute("ttp:tickRate");
   let subtitleElements = xmlDoc.getElementsByTagName("p");
   let subtitleList = [];
   Array.from(subtitleElements).forEach((subtitleElement) => {
-    let begin =
-      (subtitleElement.getAttribute("begin").slice(0, -1) / tickRate) * 1000;
-    let end =
-      (subtitleElement.getAttribute("end").slice(0, -1) / tickRate) * 1000;
+    let begin = (subtitleElement.getAttribute("begin").slice(0, -1) / tickRate) * 1000;
+    let end = (subtitleElement.getAttribute("end").slice(0, -1) / tickRate) * 1000;
 
     let value = subtitleElement.textContent;
     if (!(value && value.length > 0)) {
-      Array.from(subtitleElement.getElementsByTagName("span")).forEach(
-        (spanElement) => {
-          value += spanElement.textContent + " ";
-        }
-      );
+      Array.from(subtitleElement.getElementsByTagName("span")).forEach((spanElement) => {
+        value += spanElement.textContent + " ";
+      });
     }
 
     subtitleList.push({
@@ -333,4 +281,8 @@ function convertXmlToSubtitle(xmlDoc) {
     });
   });
   return subtitleList;
+}
+
+function fetchSubtitleFile(){
+
 }

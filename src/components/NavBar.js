@@ -1,19 +1,24 @@
 import "./NavBar.scss";
 
 export default function NavBar(props) {
-  return (
-    <nav id="nav-bar" className="navbar navbar-expand-lg navbar-dark bg-dark">
+  let backButton = null;
+
+  if (props.title) {
+    backButton = (
       <button
         className="btn btn-dark"
         onClick={() => {
-          props.onSetSubtitleId(null);
+          props.onBack();
         }}
       >
         Back
       </button>
-      {/* <a className="navbar-brand">
-        Back
-      </a> */}
+    );
+  }
+
+  return (
+    <nav id="nav-bar" className="navbar navbar-expand-lg navbar-dark bg-dark">
+      {backButton}
     </nav>
   );
 }

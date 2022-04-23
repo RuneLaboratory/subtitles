@@ -3,6 +3,13 @@
   height: 100%;
 }
 
+.app-body {
+  height: 100%;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
