@@ -63,7 +63,7 @@ export default function Menu(props) {
 async function fetchSubtitles(onComplete) {
   const url = "https://fileaccessapi01.table.core.windows.net/subtitleKey";
   const sas =
-    "?sv=2020-08-04&ss=t&srt=o&sp=rwdlacu&se=2023-04-22T18:12:06Z&st=2022-04-22T10:12:06Z&spr=https&sig=rN1%2ByQcJkJsTCJyoz5djH0675qUwDI7gtF%2BZxipqUUw%3D";
+    "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
 
   const headers = new Headers();
   headers.append("Accept", "application/json;odata=nometadata");
@@ -74,7 +74,7 @@ async function fetchSubtitles(onComplete) {
     redirect: "follow",
   };
 
-  const response = await fetch(url + sas, requestOptions);
+  const response = await fetch(url + "?" + sas, requestOptions);
   const result = await response.clone().json();
   onComplete(result.value);
 }

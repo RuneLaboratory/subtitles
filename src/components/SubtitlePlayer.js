@@ -6,7 +6,6 @@ export default function SubtitlePlayer(props) {
   const timer = useRef(new Timer());
   const [playerTime, setplayerTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  let videoTitle = "My Hero Academia S2E24";
   const englishSubtitleList = useRef([]);
   const chineseSubtitleList = useRef([]);
   const [englishSubtitleIndex, setEnglishSubtitleIndex] = useState(-1);
@@ -35,7 +34,7 @@ export default function SubtitlePlayer(props) {
       });
     });
 
-    setMsg(navigator.userAgent);
+    setMsg("---");
     if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
       setMsg(navigator.userAgent + " . ");
       window.addEventListener("focus", () => {
@@ -52,26 +51,17 @@ export default function SubtitlePlayer(props) {
       setplayerTime(time);
     };
 
-    fetch("/My Hero Academia S2E24_EN.xml")
-      .then((response) => response.text())
-      .then((data) => {
-        const parser = new DOMParser();
-        let xmlDoc = parser.parseFromString(data, "text/xml");
-        let subtitles = convertXmlToSubtitle(xmlDoc);
-        englishSubtitleList.current = subtitles;
-      })
-      .catch(console.error);
 
-    fetch("/My Hero Academia S2E24_CN.xml")
-      .then((response) => response.text())
-      .then((data) => {
-        const parser = new DOMParser();
-        let xmlDoc = parser.parseFromString(data, "text/xml");
-        let subtitles = convertXmlToSubtitle(xmlDoc);
-        chineseSubtitleList.current = subtitles;
-      })
-      .catch(console.error);
-  }, []);
+    fetchSubtitleFile(props.subtitle.FilePath_EN, (xmlDoc) => {
+      let subtitles = convertXmlToSubtitle(xmlDoc);
+      englishSubtitleList.current = subtitles;
+    });
+
+    fetchSubtitleFile(props.subtitle.FilePath_CN, (xmlDoc) => {
+      let subtitles = convertXmlToSubtitle(xmlDoc);
+      chineseSubtitleList.current = subtitles;
+    });
+  }, [props]);
 
   useEffect(() => {
     let timerRef = timer.current;
@@ -283,6 +273,25 @@ function convertXmlToSubtitle(xmlDoc) {
   return subtitleList;
 }
 
-function fetchSubtitleFile(){
+async function fetchSubtitleFile(path, onComplete) {
+  const url = `https://fileaccessapi01.blob.core.windows.net/all-files${path}`;
+  const sas =
+    "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
 
+  const headers = new Headers();
+  headers.append("Accept", "application/xml");
+
+  const requestOptions = {
+    method: "GET",
+    headers: headers,
+    redirect: "follow",
+  };
+
+  const response = await fetch(url + "?" + sas, requestOptions);
+  const data = await response.text();
+
+  const parser = new DOMParser();
+  let xmlDoc = parser.parseFromString(data, "text/xml");
+  
+  onComplete(xmlDoc);
 }
