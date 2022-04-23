@@ -192,7 +192,7 @@ export default function SubtitlePlayer() {
   }, [inputTime]);
 
   return (
-    <div className="app-body container bg-light">
+    <div className="app-body container">
       <div className="app-body row">
         <div id="subtitlePlayer" className="col align-self-center">
           <div className=".container h-100">
