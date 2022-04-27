@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Timer, { secondsToHms, hmsTosec } from "./Timer";
 import "./SubtitlePlayer.scss";
 
@@ -6,16 +6,8 @@ export default function SubtitlePlayer(props) {
   const timer = useRef(new Timer());
   const [playerTime, setplayerTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const englishSubtitleList = useRef([]);
-  const chineseSubtitleList = useRef([]);
-  const [englishSubtitleIndex, setEnglishSubtitleIndex] = useState(-1);
-  const [chineseSubtitleIndex, setChinsesSubtitleIndex] = useState(-1);
-  const [englishSubtitle_previous, setEnglishSubtitle_previous] = useState("\u00A0");
-  const [chineseSubtitle_previous, setChineseSubtitle_previous] = useState("\u00A0");
-  const [englishSubtitle_present, setEnglishSubtitle_present] = useState("\u00A0");
-  const [chineseSubtitle_present, setChineseSubtitle_present] = useState("\u00A0");
-  // const [englishSubtitle_next, setEnglishSubtitle_next] = useState("\u00A0");
-  // const [chineseSubtitle_next, setChineseSubtitle_next] = useState("\u00A0");
+  const [subtitlesENCN, setSubtitlesENCN] = useState([]);
+  const [subtitleIndex, setSubtitleIndex] = useState(0);
   const [inputTime, setInputTime] = useState();
   const totalDuration = 1411;
   // const music = useRef(new Audio("/sound_of_silence.mp3"));
@@ -51,16 +43,15 @@ export default function SubtitlePlayer(props) {
       setplayerTime(time);
     };
 
+    Promise.all([fetchSubtitleFile(props.subtitle.FilePath_EN), fetchSubtitleFile(props.subtitle.FilePath_CN)])
+      .then((xmlDoc) => {
+        const subtitlesENCN = generateSubtitleElement(xmlDoc[0], xmlDoc[1]);
+        setSubtitlesENCN(subtitlesENCN);
+      })
+      .catch((ex) => {
+        console.error(ex);
+      });
 
-    fetchSubtitleFile(props.subtitle.FilePath_EN, (xmlDoc) => {
-      let subtitles = convertXmlToSubtitle(xmlDoc);
-      englishSubtitleList.current = subtitles;
-    });
-
-    fetchSubtitleFile(props.subtitle.FilePath_CN, (xmlDoc) => {
-      let subtitles = convertXmlToSubtitle(xmlDoc);
-      chineseSubtitleList.current = subtitles;
-    });
   }, [props]);
 
   useEffect(() => {
@@ -82,80 +73,8 @@ export default function SubtitlePlayer(props) {
   }, [isPlaying, enableAutoPlay]);
 
   useEffect(() => {
-    let eIndexToDisplay = englishSubtitleList.current.findIndex((subtitle) => {
-      return subtitle.begin < Math.trunc(playerTime * 1000) && subtitle.end > Math.trunc(playerTime * 1000);
-    });
-    if (englishSubtitleIndex !== eIndexToDisplay) {
-      setEnglishSubtitleIndex(eIndexToDisplay);
-    }
-    let cIndexToDisplay = chineseSubtitleList.current.findIndex((subtitle) => {
-      return subtitle.begin < Math.trunc(playerTime * 1000) && subtitle.end > Math.trunc(playerTime * 1000);
-    });
-
-    if (chineseSubtitleIndex !== cIndexToDisplay) {
-      setChinsesSubtitleIndex(cIndexToDisplay);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setSubtitleIndex(6);
   }, [playerTime]);
-
-  const renderENSubtitle = useCallback(() => {
-    if (englishSubtitleIndex >= 0) {
-      setEnglishSubtitle_previous(englishSubtitle_present);
-      let valueToDisplay = englishSubtitleList.current[englishSubtitleIndex].value;
-      let nextSubtitle = englishSubtitleList.current[englishSubtitleIndex + 1];
-      if (
-        nextSubtitle &&
-        nextSubtitle.begin < Math.trunc(playerTime * 1000) &&
-        nextSubtitle.end > Math.trunc(playerTime * 1000)
-      ) {
-        valueToDisplay = valueToDisplay + " " + nextSubtitle.value;
-      }
-      setEnglishSubtitle_present(valueToDisplay);
-    } else {
-      setTimeout(() => {
-        setEnglishSubtitleIndex((prev) => {
-          if (prev < 0) {
-            setEnglishSubtitle_present("\u00A0");
-          }
-          return prev;
-        });
-      }, 1500);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [englishSubtitleIndex]);
-
-  const renderCNSubtitle = useCallback(() => {
-    if (chineseSubtitleIndex >= 0) {
-      setChineseSubtitle_previous(chineseSubtitle_present);
-      let valueToDisplay = chineseSubtitleList.current[chineseSubtitleIndex].value;
-      let nextSubtitle = chineseSubtitleList.current[chineseSubtitleIndex + 1];
-      if (
-        nextSubtitle &&
-        nextSubtitle.begin < Math.trunc(playerTime * 1000) &&
-        nextSubtitle.end > Math.trunc(playerTime * 1000)
-      ) {
-        valueToDisplay = valueToDisplay + " " + nextSubtitle.value;
-      }
-      setChineseSubtitle_present(valueToDisplay);
-    } else {
-      setTimeout(() => {
-        setChinsesSubtitleIndex((prev) => {
-          if (prev < 0) {
-            setChineseSubtitle_present("\u00A0");
-          }
-          return prev;
-        });
-      }, 1500);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chineseSubtitleIndex]);
-
-  useEffect(() => {
-    renderENSubtitle();
-  }, [renderENSubtitle]);
-  useEffect(() => {
-    renderCNSubtitle();
-  }, [renderCNSubtitle]);
 
   useEffect(() => {
     if (inputTime && inputTime >= 0) {
@@ -165,22 +84,23 @@ export default function SubtitlePlayer(props) {
 
   return (
     <div id="subtitlePlayer" className="col align-self-center">
+      <input
+        className="position-absolute top-0 end-0 form-check-input"
+        type="checkbox"
+        value=""
+        id="enableAutoPlay"
+        checked={enableAutoPlay}
+        onChange={() => setEnableAutoPlay(!enableAutoPlay)}
+      ></input>
       <div className=".container h-100">
-        <input
-          className="position-absolute top-0 end-0 form-check-input"
-          type="checkbox"
-          value=""
-          id="enableAutoPlay"
-          checked={enableAutoPlay}
-          onChange={() => setEnableAutoPlay(!enableAutoPlay)}
-        ></input>
-        <div className="row align-items-start h-25">
+        <div className="row align-items-start part1">
           <div id="videoTitle">
-            <h3>{props.subtitle.Title}</h3>
+            {/* <h3>{props.subtitle.Title}</h3> */}
+            <h3>---</h3>
           </div>
-          <p className="msg">{msg}</p>
+          {/* <p className="msg">{msg}</p> */}
           <div id="playerTime">
-            <p>
+            <p className="timecounter">
               <span className="time-sec">{Math.trunc(playerTime) + " Sec "}</span>
               <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
             </p>
@@ -200,19 +120,14 @@ export default function SubtitlePlayer(props) {
             </div>
           </div>
         </div>
-        <div className="row align-items-center h-50">
+        <div className="row align-items-center part2">
           <div id="subtitleDisplay">
-            <div id="subtitleText_previous">
-              <p>{englishSubtitle_previous}</p>
-              <p>{chineseSubtitle_previous}</p>
-            </div>
-            <div id="subtitleText_present">
-              <p>{englishSubtitle_present}</p>
-              <p>{chineseSubtitle_present}</p>
+            <div id="subtitle-text-list">
+              {subtitlesENCN}
             </div>
           </div>
         </div>
-        <div className="row align-items-end h-25 button-bar">
+        <div className="row align-items-end button-bar part3">
           <div className="col">
             <button id="backward1sec-btn" className="btn btn-warning" onClick={() => timer.current.backword(1)}>
               &#171;
@@ -239,7 +154,13 @@ export default function SubtitlePlayer(props) {
             </button>
           </div>
           <div className="col">
-            <button id="forward1sec-btn" className="btn btn-warning" onClick={() => timer.current.forward(1)}>
+            <button id="forward1sec-btn" className="btn btn-warning" onClick={() => {
+              timer.current.forward(1);
+              console.log(document.getElementById("hh3"));
+              document.querySelector('#CN_0').scrollIntoView({
+                behavior: 'smooth', block: "center"
+              });
+            }}>
               &#187;
             </button>
           </div>
@@ -249,31 +170,38 @@ export default function SubtitlePlayer(props) {
   );
 }
 
-function convertXmlToSubtitle(xmlDoc) {
-  let tickRate = xmlDoc.getElementsByTagName("tt")[0].getAttribute("ttp:tickRate");
-  let subtitleElements = xmlDoc.getElementsByTagName("p");
-  let subtitleList = [];
-  Array.from(subtitleElements).forEach((subtitleElement) => {
-    let begin = (subtitleElement.getAttribute("begin").slice(0, -1) / tickRate) * 1000;
-    let end = (subtitleElement.getAttribute("end").slice(0, -1) / tickRate) * 1000;
+function generateSubtitleElement(xmlDocEN, xmlDocCN) {
 
-    let value = subtitleElement.textContent;
-    if (!(value && value.length > 0)) {
-      Array.from(subtitleElement.getElementsByTagName("span")).forEach((spanElement) => {
-        value += spanElement.textContent + " ";
-      });
-    }
+  const genList = (xmlDoc, lang) => {
+    const tickRate = xmlDoc.getElementsByTagName("tt")[0].getAttribute("ttp:tickRate");
+    const subtitleElements = xmlDoc.getElementsByTagName("p");
 
-    subtitleList.push({
-      begin: begin,
-      end: end,
-      value: value,
+    const subtitle = Array.from(subtitleElements).map((p, index) => {
+      const begin = (p.getAttribute("begin").slice(0, -1) / tickRate) * 1000;
+      const end = (p.getAttribute("end").slice(0, -1) / tickRate) * 1000;
+      const id = lang + "_" + index;
+
+      let subtitleText = p.textContent;
+      if (!(subtitleText && subtitleText.length > 0)) {
+        Array.from(p.getElementsByTagName("span")).forEach((spanElement) => {
+          subtitleText += spanElement.textContent + " ";
+        });
+        subtitleText = subtitleText.slice(0, -1);
+      }
+
+      return (<li id={id} data-begin={begin} data-end={end} data-lang={lang}><p>{subtitleText}</p></li>);
     });
-  });
-  return subtitleList;
+
+    return subtitle;
+  };
+
+  let subtitleEN = genList(xmlDocEN, "EN");
+  let subtitleCN = genList(xmlDocCN, "CN");
+
+  return (<ul>{subtitleEN}{subtitleCN}</ul>)
 }
 
-async function fetchSubtitleFile(path, onComplete) {
+async function fetchSubtitleFile(path) {
   const url = `https://fileaccessapi01.blob.core.windows.net/all-files${path}`;
   const sas =
     "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
@@ -292,6 +220,6 @@ async function fetchSubtitleFile(path, onComplete) {
 
   const parser = new DOMParser();
   let xmlDoc = parser.parseFromString(data, "text/xml");
-  
-  onComplete(xmlDoc);
+
+  return xmlDoc;
 }

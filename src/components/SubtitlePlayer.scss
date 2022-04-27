@@ -1,6 +1,18 @@
 #subtitlePlayer {
   height: 90%;
 
+  .part1 {
+    height: 20%;
+  }
+
+  .part3 {
+    height: 10%;
+  }
+
+  .part2 {
+    height: 70%;
+  }
+
   #enableAutoPlay {
     margin: 20px;
   }
@@ -16,13 +28,26 @@
   }
 
   #playerTime {
-    .time-ms {
-      font-size: 0.7em;
-      color: grey;
+
+    p {
+      margin: 0;
     }
-    .time-sec {
-      font-size: 1em;
+
+    .timecounter {
+      position: absolute;
+      right: 35%;
+
+      .time-ms {
+        font-size: 0.7em;
+        color: grey;
+      }
+
+      .time-sec {
+        font-size: 1em;
+      }
     }
+
+
     .time {
       font-size: 1.3em;
       font-weight: bold;
@@ -31,6 +56,8 @@
 
   #subtitleDisplay {
     font-size: 1em;
+    height: 100%;
+    overflow: scroll;
 
     div {
       margin: 30px 10px;
@@ -39,21 +66,21 @@
     p {
       margin: 0;
     }
-    #subtitleText_present {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
   }
+
   .button-bar {
     padding-bottom: 5%;
+
     .col {
       padding-left: 5px;
       padding-right: 5px;
     }
+
     #PlayBtn {
       min-width: 100px;
       font-size: 1.6em;
     }
+
     #backward1sec-btn,
     #forward1sec-btn {
       width: 90%;
@@ -62,6 +89,7 @@
       height: 45px;
       font-weight: 700;
     }
+
     #backward05sec-btn,
     #forward05sec-btn {
       width: 90%;
