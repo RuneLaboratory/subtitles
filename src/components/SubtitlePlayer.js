@@ -5,6 +5,7 @@ import "./SubtitlePlayer.scss";
 export default function SubtitlePlayer(props) {
   const timer = useRef(new Timer());
   const [playerTime, setplayerTime] = useState(0);
+  const [checkRange, setCheckRange] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [subtitlesENCN, setSubtitlesENCN] = useState([]);
   const [subtitleIndex, setSubtitleIndex] = useState(0);
@@ -51,7 +52,6 @@ export default function SubtitlePlayer(props) {
       .catch((ex) => {
         console.error(ex);
       });
-
   }, [props]);
 
   useEffect(() => {
@@ -73,12 +73,50 @@ export default function SubtitlePlayer(props) {
   }, [isPlaying, enableAutoPlay]);
 
   useEffect(() => {
-    setSubtitleIndex(6);
-  }, [playerTime]);
+    const lis = document.querySelectorAll("#subtitleDisplay li");
+    let nextLi = null;
+    if (checkRange < 0) {
+      console.log("check all");
+      const nextLiIndex = Array.from(lis).findIndex(
+        (li) => li.dataset.begin <= playerTime && li.dataset.end > playerTime
+      );
+      nextLi = lis[nextLiIndex];
+      setSubtitleIndex(nextLiIndex);
+      setCheckRange(0);
+    } else if (checkRange > 0) {
+      console.log("check range");
+      let index = subtitleIndex - checkRange;
+      const endIndex = subtitleIndex + checkRange;
+
+      while (index <= endIndex) {
+        if (lis[index].dataset.begin <= playerTime && lis[index].dataset.end > playerTime) {
+          nextLi = lis[index];
+          break;
+        }
+        index++;
+      }
+      setSubtitleIndex(index);
+      setCheckRange(0);
+    } else {
+      if (lis[subtitleIndex + 1]?.dataset.begin <= playerTime) {
+        nextLi = lis[subtitleIndex + 1];
+        setSubtitleIndex(subtitleIndex + 1);
+      }
+    }
+
+    if (nextLi) {
+      nextLi.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      console.log("Moved to " + subtitleIndex);
+    }
+  }, [playerTime, subtitleIndex, checkRange]);
 
   useEffect(() => {
     if (inputTime && inputTime >= 0) {
       timer.current.setCurrentTime(hmsTosec(inputTime));
+      setCheckRange(-1);
     }
   }, [inputTime]);
 
@@ -95,8 +133,7 @@ export default function SubtitlePlayer(props) {
       <div className=".container h-100">
         <div className="row align-items-start part1">
           <div id="videoTitle">
-            {/* <h3>{props.subtitle.Title}</h3> */}
-            <h3>---</h3>
+            <h3>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h3>
           </div>
           {/* <p className="msg">{msg}</p> */}
           <div id="playerTime">
@@ -122,19 +159,31 @@ export default function SubtitlePlayer(props) {
         </div>
         <div className="row align-items-center part2">
           <div id="subtitleDisplay">
-            <div id="subtitle-text-list">
-              {subtitlesENCN}
-            </div>
+            <div id="subtitle-text-list">{subtitlesENCN}</div>
           </div>
         </div>
         <div className="row align-items-end button-bar part3">
           <div className="col">
-            <button id="backward1sec-btn" className="btn btn-warning" onClick={() => timer.current.backword(1)}>
+            <button
+              id="backward1sec-btn"
+              className="btn btn-warning"
+              onClick={() => {
+                timer.current.backword(1);
+                setCheckRange(5);
+              }}
+            >
               &#171;
             </button>
           </div>
           <div className="col">
-            <button id="backward05sec-btn" className="btn btn-warning" onClick={() => timer.current.backword(0.5)}>
+            <button
+              id="backward05sec-btn"
+              className="btn btn-warning"
+              onClick={() => {
+                timer.current.backword(0.5);
+                setCheckRange(3);
+              }}
+            >
               &#8249;
             </button>
           </div>
@@ -149,18 +198,26 @@ export default function SubtitlePlayer(props) {
             </button>
           </div>
           <div className="col">
-            <button id="forward05sec-btn" className="btn btn-warning" onClick={() => timer.current.forward(0.5)}>
+            <button
+              id="forward05sec-btn"
+              className="btn btn-warning"
+              onClick={() => {
+                timer.current.forward(0.5);
+                setCheckRange(3);
+              }}
+            >
               &#8250;
             </button>
           </div>
           <div className="col">
-            <button id="forward1sec-btn" className="btn btn-warning" onClick={() => {
-              timer.current.forward(1);
-              console.log(document.getElementById("hh3"));
-              document.querySelector('#CN_0').scrollIntoView({
-                behavior: 'smooth', block: "center"
-              });
-            }}>
+            <button
+              id="forward1sec-btn"
+              className="btn btn-warning"
+              onClick={() => {
+                timer.current.forward(1);
+                setCheckRange(5);
+              }}
+            >
               &#187;
             </button>
           </div>
@@ -171,14 +228,13 @@ export default function SubtitlePlayer(props) {
 }
 
 function generateSubtitleElement(xmlDocEN, xmlDocCN) {
-
-  const genList = (xmlDoc, lang) => {
+  const xmlDoc2Objs = (xmlDoc, lang) => {
     const tickRate = xmlDoc.getElementsByTagName("tt")[0].getAttribute("ttp:tickRate");
     const subtitleElements = xmlDoc.getElementsByTagName("p");
 
-    const subtitle = Array.from(subtitleElements).map((p, index) => {
-      const begin = (p.getAttribute("begin").slice(0, -1) / tickRate) * 1000;
-      const end = (p.getAttribute("end").slice(0, -1) / tickRate) * 1000;
+    const subtitleObjs = Array.from(subtitleElements).map((p, index) => {
+      const begin = p.getAttribute("begin").slice(0, -1) / tickRate;
+      const end = p.getAttribute("end").slice(0, -1) / tickRate;
       const id = lang + "_" + index;
 
       let subtitleText = p.textContent;
@@ -188,17 +244,41 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
         });
         subtitleText = subtitleText.slice(0, -1);
       }
-
-      return (<li id={id} data-begin={begin} data-end={end} data-lang={lang}><p>{subtitleText}</p></li>);
+      return { id: id, lang: lang, begin: begin, end: end, subtitleText: subtitleText };
     });
 
-    return subtitle;
+    return subtitleObjs;
   };
 
-  let subtitleEN = genList(xmlDocEN, "EN");
-  let subtitleCN = genList(xmlDocCN, "CN");
+  let enSubtitleObjs = xmlDoc2Objs(xmlDocEN, "EN");
+  let cnSubtitleObjs = xmlDoc2Objs(xmlDocCN, "CN");
 
-  return (<ul>{subtitleEN}{subtitleCN}</ul>)
+  let subtitleListElements = [];
+
+  while (enSubtitleObjs.length > 0 || cnSubtitleObjs.length > 0) {
+    let subtitleToPust =
+      enSubtitleObjs[0]?.begin <= cnSubtitleObjs[0]?.begin ? enSubtitleObjs.shift() : cnSubtitleObjs.shift();
+
+    subtitleListElements.push(
+      <li
+        key={subtitleToPust.id}
+        id={subtitleToPust.id}
+        data-begin={subtitleToPust.begin}
+        data-end={subtitleToPust.end}
+        data-lang={subtitleToPust.lang}
+      >
+        <p>{subtitleToPust.subtitleText}</p>
+      </li>
+    );
+  }
+
+  return (
+    <ul>
+      <div className="emptySub"></div>
+      {subtitleListElements}
+      <div className="emptySub"></div>
+    </ul>
+  );
 }
 
 async function fetchSubtitleFile(path) {

@@ -28,7 +28,6 @@
   }
 
   #playerTime {
-
     p {
       margin: 0;
     }
@@ -47,15 +46,20 @@
       }
     }
 
-
     .time {
       font-size: 1.3em;
       font-weight: bold;
     }
+
+    #inputTime {
+      min-width: 150px;
+      width: 30%;
+      margin: auto;
+    }
   }
 
   #subtitleDisplay {
-    font-size: 1em;
+    font-size: 1.2em;
     height: 100%;
     overflow: scroll;
 
@@ -65,6 +69,17 @@
 
     p {
       margin: 0;
+    }
+
+    ul {
+      list-style-type: none;
+      li {
+        margin: 6px 0px;
+      }
+    }
+
+    .emptySub {
+      height: 30vh;
     }
   }
 
@@ -97,11 +112,5 @@
       min-width: 40px;
       height: 40px;
     }
-  }
-
-  #inputTime {
-    min-width: 150px;
-    width: 30%;
-    margin: auto;
   }
 }

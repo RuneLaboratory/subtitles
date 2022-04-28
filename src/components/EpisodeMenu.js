@@ -27,7 +27,7 @@ export default function EpisodeMenu(props) {
                       props.onSetSubtitle(episode);
                     }}
                   >
-                    {episode.Title}
+                    {episode.RowKey + " " + episode.Title}
                   </li>
                 ))}
               </ul>
