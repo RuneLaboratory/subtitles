@@ -34,7 +34,7 @@
 
     .timecounter {
       position: absolute;
-      right: 35%;
+      right: 20%;
 
       .time-ms {
         font-size: 0.7em;
@@ -76,6 +76,11 @@
       li {
         margin: 6px 0px;
       }
+
+      .current-subtitle{
+        font-weight: bold;
+        font-size: 1.3em;
+      }
     }
 
     .emptySub {
@@ -96,8 +101,8 @@
       font-size: 1.6em;
     }
 
-    #backward1sec-btn,
-    #forward1sec-btn {
+    #backward2sec-btn,
+    #forward2sec-btn {
       width: 90%;
       max-width: 80px;
       min-width: 40px;

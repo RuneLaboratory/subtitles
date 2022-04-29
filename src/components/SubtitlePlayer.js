@@ -9,11 +9,10 @@ export default function SubtitlePlayer(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [subtitlesENCN, setSubtitlesENCN] = useState([]);
   const [subtitleIndex, setSubtitleIndex] = useState(0);
+  const boldIndex = useRef(0);
   const [inputTime, setInputTime] = useState();
-  const totalDuration = 1411;
   // const music = useRef(new Audio("/sound_of_silence.mp3"));
   const [enableAutoPlay, setEnableAutoPlay] = useState(false);
-  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     console.log(props);
@@ -27,9 +26,7 @@ export default function SubtitlePlayer(props) {
       });
     });
 
-    setMsg("---");
     if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
-      setMsg(navigator.userAgent + " . ");
       window.addEventListener("focus", () => {
         setEnableAutoPlay((prev) => {
           if (prev) {
@@ -74,48 +71,55 @@ export default function SubtitlePlayer(props) {
 
   useEffect(() => {
     const lis = document.querySelectorAll("#subtitleDisplay li");
+    let subtitleIndexToSet = null;
     let nextLi = null;
     if (checkRange < 0) {
-      console.log("check all");
       const nextLiIndex = Array.from(lis).findIndex(
         (li) => li.dataset.begin <= playerTime && li.dataset.end > playerTime
       );
-      nextLi = lis[nextLiIndex];
-      setSubtitleIndex(nextLiIndex);
+      if (nextLiIndex >= 0) {
+        nextLi = lis[nextLiIndex];
+        subtitleIndexToSet = nextLiIndex;
+      }
       setCheckRange(0);
     } else if (checkRange > 0) {
-      console.log("check range");
       let index = subtitleIndex - checkRange;
       const endIndex = subtitleIndex + checkRange;
-
-      while (index <= endIndex) {
+      while (index >= 0 && index <= endIndex) {
         if (lis[index].dataset.begin <= playerTime && lis[index].dataset.end > playerTime) {
           nextLi = lis[index];
+          subtitleIndexToSet = index;
           break;
         }
         index++;
       }
-      setSubtitleIndex(index);
       setCheckRange(0);
     } else {
       if (lis[subtitleIndex + 1]?.dataset.begin <= playerTime) {
         nextLi = lis[subtitleIndex + 1];
-        setSubtitleIndex(subtitleIndex + 1);
+        subtitleIndexToSet = subtitleIndex + 1;
       }
     }
 
     if (nextLi) {
+      if (nextLi.dataset.lang === "EN") {
+        lis[boldIndex.current].classList.remove("current-subtitle");
+        boldIndex.current = subtitleIndexToSet;
+        nextLi.classList.add("current-subtitle");
+      }
+
+      setSubtitleIndex(subtitleIndexToSet);
       nextLi.scrollIntoView({
-        behavior: "smooth",
+        behavior: "auto",
         block: "center",
       });
-      console.log("Moved to " + subtitleIndex);
     }
   }, [playerTime, subtitleIndex, checkRange]);
 
   useEffect(() => {
     if (inputTime && inputTime >= 0) {
       timer.current.setCurrentTime(hmsTosec(inputTime));
+      setplayerTime(timer.current.currentTime());
       setCheckRange(-1);
     }
   }, [inputTime]);
@@ -135,13 +139,12 @@ export default function SubtitlePlayer(props) {
           <div id="videoTitle">
             <h3>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h3>
           </div>
-          {/* <p className="msg">{msg}</p> */}
           <div id="playerTime">
             <p className="timecounter">
               <span className="time-sec">{Math.trunc(playerTime) + " Sec "}</span>
               <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
             </p>
-            <p className="time">{secondsToHms(totalDuration - playerTime)}</p>
+            <p className="time">{secondsToHms(props.subtitle.DurationSec - playerTime)}</p>
             <div>
               {!isPlaying ? (
                 <input
@@ -165,10 +168,10 @@ export default function SubtitlePlayer(props) {
         <div className="row align-items-end button-bar part3">
           <div className="col">
             <button
-              id="backward1sec-btn"
+              id="backward2sec-btn"
               className="btn btn-warning"
               onClick={() => {
-                timer.current.backword(1);
+                timer.current.backword(2);
                 setCheckRange(5);
               }}
             >
@@ -211,10 +214,10 @@ export default function SubtitlePlayer(props) {
           </div>
           <div className="col">
             <button
-              id="forward1sec-btn"
+              id="forward2sec-btn"
               className="btn btn-warning"
               onClick={() => {
-                timer.current.forward(1);
+                timer.current.forward(2);
                 setCheckRange(5);
               }}
             >
