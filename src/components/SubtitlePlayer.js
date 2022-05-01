@@ -262,17 +262,19 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
     let subtitleToPust =
       enSubtitleObjs[0]?.begin <= cnSubtitleObjs[0]?.begin ? enSubtitleObjs.shift() : cnSubtitleObjs.shift();
 
-    subtitleListElements.push(
-      <li
-        key={subtitleToPust.id}
-        id={subtitleToPust.id}
-        data-begin={subtitleToPust.begin}
-        data-end={subtitleToPust.end}
-        data-lang={subtitleToPust.lang}
-      >
-        <p>{subtitleToPust.subtitleText}</p>
-      </li>
-    );
+    if (subtitleToPust) { 
+      subtitleListElements.push(
+        <li
+          key={subtitleToPust.id}
+          id={subtitleToPust.id}
+          data-begin={subtitleToPust.begin}
+          data-end={subtitleToPust.end}
+          data-lang={subtitleToPust.lang}
+        >
+          <p>{subtitleToPust.subtitleText}</p>
+        </li>
+      );
+    }
   }
 
   return (
@@ -285,7 +287,7 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
 }
 
 async function fetchSubtitleFile(path) {
-  const url = `https://fileaccessapi01.blob.core.windows.net/all-files${path}`;
+  const url = `https://fileaccessapi01.blob.core.windows.net/subtitle/${path}`;
   const sas =
     "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
 

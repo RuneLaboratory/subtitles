@@ -34,7 +34,7 @@
 
     .timecounter {
       position: absolute;
-      right: 20%;
+      right: 5%;
 
       .time-ms {
         font-size: 0.7em;
@@ -59,7 +59,7 @@
   }
 
   #subtitleDisplay {
-    font-size: 1.2em;
+    font-size: 0.8em;
     height: 100%;
     overflow: scroll;
 
@@ -79,7 +79,7 @@
 
       .current-subtitle{
         font-weight: bold;
-        font-size: 1.3em;
+        font-size: 1.1em;
       }
     }
 
