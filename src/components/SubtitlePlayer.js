@@ -15,8 +15,6 @@ export default function SubtitlePlayer(props) {
   const [enableAutoPlay, setEnableAutoPlay] = useState(false);
 
   useEffect(() => {
-    console.log(props);
-
     window.addEventListener("blur", () => {
       setEnableAutoPlay((prev) => {
         if (prev) {
@@ -240,12 +238,14 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
       const end = p.getAttribute("end").slice(0, -1) / tickRate;
       const id = lang + "_" + index;
 
-      let subtitleText = p.textContent;
-      if (!(subtitleText && subtitleText.length > 0)) {
+      let subtitleText = "";
+      if (p.hasChildNodes()) {
         Array.from(p.getElementsByTagName("span")).forEach((spanElement) => {
           subtitleText += spanElement.textContent + " ";
         });
         subtitleText = subtitleText.slice(0, -1);
+      } else {
+        subtitleText = p.textContent;
       }
       return { id: id, lang: lang, begin: begin, end: end, subtitleText: subtitleText };
     });
@@ -259,22 +259,27 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
   let subtitleListElements = [];
 
   while (enSubtitleObjs.length > 0 || cnSubtitleObjs.length > 0) {
-    let subtitleToPust =
-      enSubtitleObjs[0]?.begin <= cnSubtitleObjs[0]?.begin ? enSubtitleObjs.shift() : cnSubtitleObjs.shift();
-
-    if (subtitleToPust) { 
-      subtitleListElements.push(
-        <li
-          key={subtitleToPust.id}
-          id={subtitleToPust.id}
-          data-begin={subtitleToPust.begin}
-          data-end={subtitleToPust.end}
-          data-lang={subtitleToPust.lang}
-        >
-          <p>{subtitleToPust.subtitleText}</p>
-        </li>
-      );
+    let subtitleToPust;
+    if (cnSubtitleObjs.length === 0) {
+      subtitleToPust = enSubtitleObjs.shift();
+    } else if (enSubtitleObjs.length === 0) {
+      subtitleToPust = cnSubtitleObjs.shift();
+    } else {
+      subtitleToPust =
+        enSubtitleObjs[0].begin <= cnSubtitleObjs[0].begin ? enSubtitleObjs.shift() : cnSubtitleObjs.shift();
     }
+
+    subtitleListElements.push(
+      <li
+        key={subtitleToPust.id}
+        id={subtitleToPust.id}
+        data-begin={subtitleToPust.begin}
+        data-end={subtitleToPust.end}
+        data-lang={subtitleToPust.lang}
+      >
+        <p>{subtitleToPust.subtitleText}</p>
+      </li>
+    );
   }
 
   return (
