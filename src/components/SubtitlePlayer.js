@@ -239,7 +239,7 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
       const id = lang + "_" + index;
 
       let subtitleText = "";
-      if (p.hasChildNodes()) {
+      if (p.hasChildNodes() && p.childNodes.length > 1) {
         Array.from(p.getElementsByTagName("span")).forEach((spanElement) => {
           subtitleText += spanElement.textContent + " ";
         });
