@@ -60,6 +60,8 @@ export default function SubtitlePlayer(props) {
       timerRef.pause();
     }
 
+    const bgColor = isPlaying ? null : "#ffe6eb";
+    document.getElementById("subtitleDisplay").style.backgroundColor = bgColor;
     setInputTime(""); // TODO
 
     return () => {
@@ -134,7 +136,7 @@ export default function SubtitlePlayer(props) {
       ></input>
       <div className=".container h-100">
         <div className="row align-items-start part1">
-          <div id="videoTitle">
+          <div id="videoTitle" onClick={() => setIsPlaying(!isPlaying)} className="btn btn-light">
             <h3>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h3>
           </div>
           <div id="playerTime">
@@ -240,13 +242,14 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
 
       let subtitleText = "";
       if (p.hasChildNodes() && p.childNodes.length > 1) {
-        Array.from(p.getElementsByTagName("span")).forEach((spanElement) => {
-          subtitleText += spanElement.textContent + " ";
+        Array.from(p.childNodes).forEach((element) => {
+          subtitleText += element.textContent + " ";
         });
         subtitleText = subtitleText.slice(0, -1);
       } else {
         subtitleText = p.textContent;
       }
+
       return { id: id, lang: lang, begin: begin, end: end, subtitleText: subtitleText };
     });
 

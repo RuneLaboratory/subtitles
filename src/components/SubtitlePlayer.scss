@@ -19,6 +19,13 @@
 
   #videoTitle {
     padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
   }
 
   .msg {
@@ -77,7 +84,7 @@
         margin: 6px 0px;
       }
 
-      .current-subtitle{
+      .current-subtitle {
         font-weight: bold;
         font-size: 1.4em;
       }
@@ -97,8 +104,12 @@
     }
 
     #PlayBtn {
-      min-width: 100px;
+      min-width: 120px;
       font-size: 1.6em;
+    }
+    #PlayBtn.btn-outline-success{
+      background-color: transparent;
+      color: #157347;
     }
 
     #backward2sec-btn,
