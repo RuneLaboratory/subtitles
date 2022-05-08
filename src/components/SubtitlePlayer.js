@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Timer, { secondsToHms, hmsTosec } from "./Timer";
+import { vocabDB } from "../service/CosmosDB";
+import { translate } from "../service/Dictionary";
 import "./SubtitlePlayer.scss";
 
 export default function SubtitlePlayer(props) {
@@ -124,6 +126,125 @@ export default function SubtitlePlayer(props) {
     }
   }, [inputTime]);
 
+  async function saveVocab() {
+    const selection = window.getSelection();
+    let vocab = selection.toString()?.trim();
+
+    if (!vocab) {
+      return;
+    }
+
+    const curElementEN = selection.anchorNode.parentElement.parentElement;
+
+    if (curElementEN.dataset.lang === "CN") {
+      return;
+    }
+
+    let curElementCN;
+    let preElementEN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
+    let preElementCN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
+    let nextElementEN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
+    let nextElementCN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
+
+    let pElement = curElementEN.previousSibling;
+    while (!preElementEN) {
+      if (pElement.dataset.lang === "EN") {
+        preElementEN = pElement;
+      } else {
+        pElement = pElement.previousSibling;
+      }
+    }
+    pElement = curElementEN.previousSibling;
+    while (!preElementCN) {
+      if (pElement.dataset.lang === "CN") {
+        preElementCN = pElement;
+      } else {
+        pElement = pElement.previousSibling;
+      }
+    }
+    pElement = curElementEN.nextSibling;
+    while (!curElementCN) {
+      if (pElement.dataset.lang === "CN") {
+        curElementCN = pElement;
+      } else {
+        pElement = pElement.nextSibling;
+      }
+    }
+    pElement = curElementEN.nextSibling;
+    while (!nextElementEN) {
+      if (pElement.dataset.lang === "EN") {
+        nextElementEN = pElement;
+      } else {
+        pElement = pElement.nextSibling;
+      }
+    }
+    pElement = nextElementEN.nextSibling;
+    while (!nextElementCN) {
+      if (pElement.dataset.lang === "CN") {
+        nextElementCN = pElement;
+      } else {
+        pElement = pElement.nextSibling;
+      }
+    }
+
+    const subtitleElements = {
+      subtitleEN_B: preElementEN.textContent,
+      subtitleCN_B: preElementCN.textContent,
+      subtitleEN_C: curElementEN.textContent,
+      subtitleCN_C: curElementCN.textContent,
+      subtitleEN_A: nextElementEN.textContent,
+      subtitleCN_A: nextElementCN.textContent,
+    };
+
+    let existingVocab = await vocabDB.getVocab(vocab, vocab);
+
+    let mediaMatchIndex = existingVocab?.from.findIndex(
+      (f) => f.mediaName === props.subtitle.PartitionKey && f.episode === props.subtitle.RowKey
+    );
+    let mediaMatch = existingVocab?.from[mediaMatchIndex];
+    let subtitleMatch = mediaMatch?.subtitle.find((s) => s.subtitleEN_C === curElementEN.textContent);
+
+    let vocabObj = existingVocab;
+    if (subtitleMatch) {
+      const saveBtn = document.querySelector("button#save-btn");
+      const oriText = saveBtn.textContent;
+      saveBtn.textContent = "Skip";
+      setTimeout(() => (saveBtn.textContent = oriText), 2000);
+      return;
+    } else if (mediaMatch) {
+      mediaMatch.subtitle.push(subtitleElements);
+      existingVocab.from[mediaMatchIndex] = mediaMatch;
+    } else if (existingVocab) {
+      vocabObj.from.push({
+        mediaName: props.subtitle.PartitionKey,
+        episode: props.subtitle.RowKey,
+        subtitle: [subtitleElements],
+      });
+    } else {
+      const definitionCN = await translate(vocab);
+      vocabObj = {
+        id: vocab,
+        vocab: vocab,
+        definitionCN: definitionCN,
+        from: [
+          {
+            mediaName: props.subtitle.PartitionKey,
+            episode: props.subtitle.RowKey,
+            subtitle: [subtitleElements],
+          },
+        ],
+      };
+    }
+
+    const createdVocab = await vocabDB.upsertVocab(vocabObj);
+    if (createdVocab) {
+      const saveBtn = document.querySelector("button#save-btn");
+      const oriText = saveBtn.textContent;
+      saveBtn.textContent = "Saved!";
+      setTimeout(() => (saveBtn.textContent = oriText), 2000);
+    }
+  }
+
   return (
     <div id="subtitlePlayer" className="col align-self-center">
       <input
@@ -139,12 +260,17 @@ export default function SubtitlePlayer(props) {
           <div id="videoTitle" onClick={() => setIsPlaying(!isPlaying)} className="btn btn-light">
             <h3>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h3>
           </div>
-          <div id="playerTime">
-            <p className="timecounter">
+          <div className="function-bar row">
+            <p className="timecounter col">
               <span className="time-sec">{Math.trunc(playerTime) + " Sec "}</span>
               <span className="time-ms">{Math.trunc(playerTime * 1000)}</span>
             </p>
-            <p className="time">{secondsToHms(props.subtitle.DurationSec - playerTime)}</p>
+            <p className="time col">{secondsToHms(props.subtitle.DurationSec - playerTime)}</p>
+            <p className="saveBtn col">
+              <button id="save-btn" className="btn btn-primary btn-sm float-end" onClick={saveVocab}>
+                Save
+              </button>
+            </p>
             <div>
               {!isPlaying ? (
                 <input

@@ -34,15 +34,12 @@
     overflow: scroll;
   }
 
-  #playerTime {
+  .function-bar {
     p {
       margin: 0;
     }
 
     .timecounter {
-      position: absolute;
-      right: 5%;
-
       .time-ms {
         font-size: 0.7em;
         color: grey;
