@@ -11,8 +11,8 @@ function App() {
     MediaMenu: "MediaMenu",
     MediaEpisode: "MediaEpisode",
     SubtitlePlayer: "SubtitlePlayer",
-    NoteBook: "NoteBook"
-  }
+    NoteBook: "NoteBook",
+  };
   const [title, setTitle] = useState();
   const [subtitle, setSubtitle] = useState();
   const [curPage, setCurPage] = useState(Page.MediaMenu);
@@ -25,6 +25,7 @@ function App() {
 
   function onSetSubtitle(subtitle) {
     setSubtitle(subtitle);
+    setCurPage(Page.SubtitlePlayer);
   }
 
   function onBack() {
@@ -38,27 +39,11 @@ function App() {
   }
 
   function onSetPage(curPage) {
+    if(curPage === Page.MediaMenu){
+      setTitle(null);
+    }
     setCurPage(curPage);
   }
-
-  let page;
-  console.log(curPage);
-  if (curPage === Page.MediaMenu) {
-    console.log("in medai menu");
-    page = <Menu key={title} title={title} onSetTitle={onSetTitle} />;
-  } else if (curPage === Page.MediaMenu) {
-    page = <EpisodeMenu partitionKey={title} onSetSubtitle={onSetSubtitle} />
-  } else if (curPage === Page.SubtitlePlayer) {
-    page = <SubtitlePlayer subtitle={subtitle} />;
-  } else if (curPage === Page.NoteBook) {
-    page = <NoteBook />;
-  }
-
-  // if (subtitle) {
-  //   page = <SubtitlePlayer subtitle={subtitle} />;
-  // } else if (title) {
-  //   page = <EpisodeMenu partitionKey={title} onSetSubtitle={onSetSubtitle} />
-  // }
 
   return (
     <div className="App bg-light">
@@ -66,7 +51,20 @@ function App() {
       <div className="app-body container">
         <div className="app-body row">
           <NavBar title={title} onBack={onBack} onSetPage={onSetPage} curPage={curPage}></NavBar>
-          {page}
+          {(() => {
+            switch (curPage) {
+              case Page.MediaMenu:
+                return <Menu key={title} title={title} onSetTitle={onSetTitle} />;
+              case Page.MediaEpisode:
+                return <EpisodeMenu partitionKey={title} onSetSubtitle={onSetSubtitle} />;
+              case Page.SubtitlePlayer:
+                return <SubtitlePlayer subtitle={subtitle} />;
+              case Page.NoteBook:
+                return <NoteBook />;
+              default:
+                return null;
+            }
+          })()}
         </div>
       </div>
     </div>
@@ -74,3 +72,6 @@ function App() {
 }
 
 export default App;
+
+// TODO, remove the ignore error
+//"start": "GENERATE_SOURCEMAP=false react-scripts start",

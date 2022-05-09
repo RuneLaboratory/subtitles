@@ -4,7 +4,7 @@ export default function NavBar(props) {
   let backButton = null;
   let pageBtn = null;
 
-  if (props.title) {
+  if (props.title && props.curPage !== "NoteBook") {
     backButton = (
       <button
         className="btn btn-dark"
@@ -22,7 +22,7 @@ export default function NavBar(props) {
   }
 
   if (props.curPage === "NoteBook") {
-    pageBtn = (<button className="btn btn-dark" onClick={() => props.onSetPage("SubtitlePlayer")}>Player</button>);
+    pageBtn = (<button className="btn btn-dark" onClick={() => props.onSetPage("MediaMenu")}>Player</button>);
   } else {
     pageBtn = (<button className="btn btn-dark" onClick={() => props.onSetPage("NoteBook")}>NoteBook</button>);
   }
