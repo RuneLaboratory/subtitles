@@ -273,7 +273,7 @@ export default function SubtitlePlayer(props) {
         </div>
         <div className="row align-items-center part2">
           <div id="subtitleDisplay">
-            <div id="subtitle-text-list" onMouseUp={onUserSelectVocab}>
+            <div id="subtitle-text-list" onPointerUp={onUserSelectVocab}>
               {subtitlesENCN}
             </div>
           </div>
