@@ -15,13 +15,12 @@ export default function SubtitlePlayer(props) {
   const [inputTime, setInputTime] = useState();
   // const music = useRef(new Audio("/sound_of_silence.mp3"));
   const [enableAutoPlay, setEnableAutoPlay] = useState(false);
+  const [selectedSelection, setSelectedSelection] = useState();
 
   useEffect(() => {
     window.addEventListener("blur", () => {
       setEnableAutoPlay((prev) => {
-        if (prev) {
-          setIsPlaying(true);
-        }
+        if (prev) setIsPlaying(true);
         return prev;
       });
     });
@@ -29,9 +28,7 @@ export default function SubtitlePlayer(props) {
     if (!(navigator.userAgent.includes("iPad") || navigator.userAgent.includes("Mac"))) {
       window.addEventListener("focus", () => {
         setEnableAutoPlay((prev) => {
-          if (prev) {
-            setIsPlaying(false);
-          }
+          if (prev) setIsPlaying(false);
           return prev;
         });
       });
@@ -126,13 +123,20 @@ export default function SubtitlePlayer(props) {
     }
   }, [inputTime]);
 
-  async function saveVocab() {
+  async function onUserSelectVocab() {
     const selection = window.getSelection();
     let vocab = selection.toString()?.trim();
-
-    if (!vocab) {
-      return;
+    if (vocab.length > 1 && vocab.length < 35) {
+      const definitionCN = await translate(vocab);
+      setSelectedSelection({ selection: selection, vocab: vocab + " : " + definitionCN });
     }
+  }
+
+  async function saveVocab() {
+    const selection = selectedSelection?.selection;
+    let vocab = selection?.toString()?.trim();
+
+    if (!vocab) return;
 
     const curElementEN = selection.anchorNode.parentElement.parentElement;
 
@@ -148,43 +152,23 @@ export default function SubtitlePlayer(props) {
 
     let pElement = curElementEN.previousSibling;
     while (!preElementEN) {
-      if (pElement.dataset.lang === "EN") {
-        preElementEN = pElement;
-      } else {
-        pElement = pElement.previousSibling;
-      }
+      pElement.dataset.lang === "EN" ? (preElementEN = pElement) : (pElement = pElement.previousSibling);
     }
     pElement = curElementEN.previousSibling;
     while (!preElementCN) {
-      if (pElement.dataset.lang === "CN") {
-        preElementCN = pElement;
-      } else {
-        pElement = pElement.previousSibling;
-      }
+      pElement.dataset.lang === "CN" ? (preElementCN = pElement) : (pElement = pElement.previousSibling);
     }
     pElement = curElementEN.nextSibling;
     while (!curElementCN) {
-      if (pElement.dataset.lang === "CN") {
-        curElementCN = pElement;
-      } else {
-        pElement = pElement.nextSibling;
-      }
+      pElement.dataset.lang === "CN" ? (curElementCN = pElement) : (pElement = pElement.nextSibling);
     }
     pElement = curElementEN.nextSibling;
     while (!nextElementEN) {
-      if (pElement.dataset.lang === "EN") {
-        nextElementEN = pElement;
-      } else {
-        pElement = pElement.nextSibling;
-      }
+      pElement.dataset.lang === "EN" ? (nextElementEN = pElement) : (pElement = pElement.nextSibling);
     }
     pElement = nextElementEN.nextSibling;
     while (!nextElementCN) {
-      if (pElement.dataset.lang === "CN") {
-        nextElementCN = pElement;
-      } else {
-        pElement = pElement.nextSibling;
-      }
+      pElement.dataset.lang === "CN" ? (nextElementCN = pElement) : (pElement = pElement.nextSibling);
     }
 
     const subtitleElements = {
@@ -258,7 +242,7 @@ export default function SubtitlePlayer(props) {
       <div className=".container h-100">
         <div className="row align-items-start part1">
           <div id="videoTitle" onClick={() => setIsPlaying(!isPlaying)} className="btn btn-light">
-            <h3>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h3>
+            <h5>{props.subtitle.PartitionKey + " " + props.subtitle.RowKey + " " + props.subtitle.Title}</h5>
           </div>
           <div className="function-bar row">
             <p className="timecounter col">
@@ -270,13 +254,14 @@ export default function SubtitlePlayer(props) {
               <button id="save-btn" className="btn btn-primary btn-sm float-end" onClick={saveVocab}>
                 Save
               </button>
+              <span className="selected-vocab float-end">{selectedSelection?.vocab}</span>
             </p>
             <div>
               {!isPlaying ? (
                 <input
                   id="inputTime"
                   type="number"
-                  className="form-control"
+                  className="form-control form-control-sm"
                   onChange={(e) => setInputTime(e.target.value)}
                   onFocus={(e) => setInputTime(e.target.select())}
                 />
@@ -288,7 +273,9 @@ export default function SubtitlePlayer(props) {
         </div>
         <div className="row align-items-center part2">
           <div id="subtitleDisplay">
-            <div id="subtitle-text-list">{subtitlesENCN}</div>
+            <div id="subtitle-text-list" onMouseUp={onUserSelectVocab}>
+              {subtitlesENCN}
+            </div>
           </div>
         </div>
         <div className="row align-items-end button-bar part3">

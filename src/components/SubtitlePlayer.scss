@@ -18,7 +18,7 @@
   }
 
   #videoTitle {
-    padding: 10px;
+    padding: 7px;
     display: inline-block;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.2);
@@ -51,7 +51,7 @@
     }
 
     .time {
-      font-size: 1.3em;
+      font-size: 1.2em;
       font-weight: bold;
     }
 
@@ -59,6 +59,10 @@
       min-width: 150px;
       width: 30%;
       margin: auto;
+    }
+
+    .selected-vocab {
+      padding: 0.25rem 1rem;
     }
   }
 
@@ -104,7 +108,7 @@
       min-width: 120px;
       font-size: 1.6em;
     }
-    #PlayBtn.btn-outline-success{
+    #PlayBtn.btn-outline-success {
       background-color: transparent;
       color: #157347;
     }
