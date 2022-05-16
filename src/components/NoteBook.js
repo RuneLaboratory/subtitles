@@ -47,21 +47,27 @@ export default function Menu(props) {
   const vocabCards = vocabs.map((vocab) => {
     return (
       <div key={vocab.id} className="card">
-        <OverlayTrigger
-          placement="bottom"
-          delay={{ show: 1000, hide: 250 }}
-          overlay={<Tooltip id="button-tooltip">{vocab.definitionCN.map((d) => d + " ")}</Tooltip>}
-        >
-          <div
-            className="card-header btn"
-            id={"head-" + vocab.id}
-            onClick={(e) => {
+        <div
+          className="card-header btn"
+          id={"head-" + vocab.id}
+          onClick={(e) => {
+            if (e.target.classList.contains("card-header")) {
               e.target.nextSibling.classList.toggle("show");
-            }}
+            }
+          }}
+        >
+          <OverlayTrigger
+            trigger="click"
+            placement="bottom"
+            delay={{ show: 1000, hide: 250 }}
+            overlay={<Tooltip id="button-tooltip">{vocab.definitionCN.map((d) => d + " ")}</Tooltip>}
           >
-            {vocab.vocab}
-          </div>
-        </OverlayTrigger>
+            <div className="vocab-title">
+              <span>{vocab.vocab}</span>
+            </div>
+          </OverlayTrigger>
+        </div>
+
         <div id={"body-" + vocab.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
           <div className="card-body">
             <div>{genSubtitleSample(vocab.from)}</div>
