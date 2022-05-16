@@ -126,6 +126,12 @@ export default function SubtitlePlayer(props) {
   async function onUserSelectVocab() {
     const selection = window.getSelection();
     let vocab = selection.toString()?.trim();
+
+    const curElementEN = selection.anchorNode.parentElement.parentElement;
+    if (curElementEN.dataset.lang === "CN") {
+      return;
+    }
+
     if (vocab.length > 1 && vocab.length < 35) {
       const definitionCN = await translate(vocab);
       setSelectedSelection({ selection: selection, vocab: vocab + " : " + definitionCN });
@@ -139,11 +145,6 @@ export default function SubtitlePlayer(props) {
     if (!vocab) return;
 
     const curElementEN = selection.anchorNode.parentElement.parentElement;
-
-    if (curElementEN.dataset.lang === "CN") {
-      return;
-    }
-
     let curElementCN;
     let preElementEN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
     let preElementCN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
