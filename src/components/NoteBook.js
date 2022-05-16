@@ -30,7 +30,6 @@ export default function Menu(props) {
                 <li className="list-group-item">{s.subtitleEN_C}</li>
               </OverlayTrigger>
               <OverlayTrigger
-                trigger="click"
                 placement="bottom"
                 delay={{ show: 250, hide: 250 }}
                 overlay={<Tooltip id="button-tooltip">{s.subtitleCN_A}</Tooltip>}
