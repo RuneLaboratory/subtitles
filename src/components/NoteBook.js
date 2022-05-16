@@ -12,9 +12,15 @@ export default function Menu(props) {
           <p>{f.mediaName + " " + f.episode}</p>
           {f.subtitle.map((s, i) => (
             <ul key={i} className="list-group">
-              <li className="list-group-item" title={s.subtitleCN_B}>{s.subtitleEN_B}</li>
-              <li className="list-group-item" title={s.subtitleCN_C}>{s.subtitleEN_C}</li>
-              <li className="list-group-item" title={s.subtitleCN_A}>{s.subtitleEN_A}</li>
+              <li className="list-group-item" title={s.subtitleCN_B}>
+                {s.subtitleEN_B}
+              </li>
+              <li className="list-group-item" title={s.subtitleCN_C}>
+                {s.subtitleEN_C}
+              </li>
+              <li className="list-group-item" title={s.subtitleCN_A}>
+                {s.subtitleEN_A}
+              </li>
             </ul>
           ))}
         </div>
@@ -30,16 +36,15 @@ export default function Menu(props) {
           id={"head-" + vocab.id}
           onClick={(e) => {
             e.target.nextSibling.classList.toggle("show");
+            // e.target.nextSibling.classList.tooltip("show");
           }}
-          title={vocab.definitionCN.map(d=>d + " ")}
+          title={vocab.definitionCN.map((d) => d + " ")}
         >
           {vocab.vocab}
         </div>
         <div id={"body-" + vocab.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
           <div className="card-body">
-            <div>
-              {genSubtitleSample(vocab.from)}
-            </div>
+            <div>{genSubtitleSample(vocab.from)}</div>
           </div>
         </div>
       </div>
@@ -54,7 +59,6 @@ export default function Menu(props) {
 
   return (
     <div id="note-book">
-      <div>Note Book</div>
       <div className="vocabs">{vocabCards}</div>
     </div>
   );
