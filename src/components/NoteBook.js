@@ -14,7 +14,6 @@ export default function Menu(props) {
           {f.subtitle.map((s, i) => (
             <ul key={i} className="list-group">
               <OverlayTrigger
-                trigger="click"
                 placement="bottom"
                 delay={{ show: 250, hide: 250 }}
                 overlay={<Tooltip id="button-tooltip">{s.subtitleCN_B}</Tooltip>}
@@ -22,7 +21,6 @@ export default function Menu(props) {
                 <li className="list-group-item">{s.subtitleEN_B}</li>
               </OverlayTrigger>
               <OverlayTrigger
-                trigger="click"
                 placement="bottom"
                 delay={{ show: 250, hide: 250 }}
                 overlay={<Tooltip id="button-tooltip">{s.subtitleCN_C}</Tooltip>}
@@ -56,7 +54,6 @@ export default function Menu(props) {
           }}
         >
           <OverlayTrigger
-            trigger="click"
             placement="bottom"
             delay={{ show: 1000, hide: 250 }}
             overlay={<Tooltip id="button-tooltip">{vocab.definitionCN.map((d) => d + " ")}</Tooltip>}
