@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { vocabDB } from "../service/CosmosDB";
 import "./NoteBook.scss";
 
