@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { vocabDB } from "../service/CosmosDB";
 import "./NoteBook.scss";
 
@@ -12,15 +13,27 @@ export default function Menu(props) {
           <p>{f.mediaName + " " + f.episode}</p>
           {f.subtitle.map((s, i) => (
             <ul key={i} className="list-group">
-              <li className="list-group-item" title={s.subtitleCN_B}>
-                {s.subtitleEN_B}
-              </li>
-              <li className="list-group-item" title={s.subtitleCN_C}>
-                {s.subtitleEN_C}
-              </li>
-              <li className="list-group-item" title={s.subtitleCN_A}>
-                {s.subtitleEN_A}
-              </li>
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 250 }}
+                overlay={<Tooltip id="button-tooltip">{s.subtitleCN_B}</Tooltip>}
+              >
+                <li className="list-group-item">{s.subtitleEN_B}</li>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 250 }}
+                overlay={<Tooltip id="button-tooltip">{s.subtitleCN_C}</Tooltip>}
+              >
+                <li className="list-group-item">{s.subtitleEN_C}</li>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 250 }}
+                overlay={<Tooltip id="button-tooltip">{s.subtitleCN_A}</Tooltip>}
+              >
+                <li className="list-group-item">{s.subtitleEN_A}</li>
+              </OverlayTrigger>
             </ul>
           ))}
         </div>
@@ -31,17 +44,22 @@ export default function Menu(props) {
   const vocabCards = vocabs.map((vocab) => {
     return (
       <div key={vocab.id} className="card">
-        <div
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 1000, hide: 250 }}
+          overlay={<Tooltip id="button-tooltip">{vocab.definitionCN.map((d) => d + " ")}</Tooltip>}
+        >
+          <div
           className="card-header btn"
           id={"head-" + vocab.id}
           onClick={(e) => {
             e.target.nextSibling.classList.toggle("show");
             // e.target.nextSibling.classList.tooltip("show");
           }}
-          title={vocab.definitionCN.map((d) => d + " ")}
         >
           {vocab.vocab}
         </div>
+        </OverlayTrigger>
         <div id={"body-" + vocab.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
           <div className="card-body">
             <div>{genSubtitleSample(vocab.from)}</div>

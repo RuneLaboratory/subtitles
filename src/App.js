@@ -1,3 +1,5 @@
+import { Container, Row } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import SubtitlePlayer from "./components/SubtitlePlayer";
 import NavBar from "./components/NavBar";
@@ -46,10 +48,10 @@ function App() {
   }
 
   return (
-    <div className="App bg-light">
+    <div className="app bg-light">
       <header></header>
-      <div className="app-body container">
-        <div className="app-body row">
+      <Container className="app-body">
+        <Row className="app-body">
           <NavBar title={title} onBack={onBack} onSetPage={onSetPage} curPage={curPage}></NavBar>
           {(() => {
             switch (curPage) {
@@ -65,8 +67,8 @@ function App() {
                 return null;
             }
           })()}
-        </div>
-      </div>
+        </Row>
+      </Container>
     </div>
   );
 }

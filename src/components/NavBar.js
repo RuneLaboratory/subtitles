@@ -1,3 +1,4 @@
+import { Button, Navbar } from "react-bootstrap";
 import "./NavBar.scss";
 
 export default function NavBar(props) {
@@ -6,31 +7,32 @@ export default function NavBar(props) {
 
   if (props.title && props.curPage !== "NoteBook") {
     backButton = (
-      <button
-        className="btn btn-dark"
-        onClick={() => props.onBack()}
-      >
+      <Button variant="btn btn-dark" onClick={() => props.onBack()}>
         Back
-      </button>
+      </Button>
     );
   } else {
-    backButton = (
-      <button className="btn btn-dark">
-        &nbsp;
-      </button>
-    );
+    backButton = <Button variant="btn btn-dark">&nbsp;</Button>;
   }
 
   if (props.curPage === "NoteBook") {
-    pageBtn = (<button className="btn btn-dark" onClick={() => props.onSetPage("MediaMenu")}>Player</button>);
+    pageBtn = (
+      <Button variant="btn btn-dark" onClick={() => props.onSetPage("MediaMenu")}>
+        Player
+      </Button>
+    );
   } else {
-    pageBtn = (<button className="btn btn-dark" onClick={() => props.onSetPage("NoteBook")}>NoteBook</button>);
+    pageBtn = (
+      <Button variant="btn btn-dark" onClick={() => props.onSetPage("NoteBook")}>
+        NoteBook
+      </Button>
+    );
   }
 
   return (
-    <nav id="nav-bar" className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <Navbar id="nav-bar" expand="lg" bg="dark">
       {backButton}
       {pageBtn}
-    </nav>
+    </Navbar >
   );
 }

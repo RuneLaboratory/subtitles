@@ -4,6 +4,10 @@
       padding: 0.5rem 0.5rem;
 
       .media-sample {
+        tooltip-inner {
+          max-width: 400px;
+        }
+
         p {
           font-weight: bold;
           margin: 0;
