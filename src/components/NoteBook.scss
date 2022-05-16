@@ -1,2 +1,18 @@
 #note-book {
+  .vocabs {
+    .card-body {
+      padding: 0.5rem 0.5rem;
+
+      .media-sample {
+        p {
+          font-weight: bold;
+          margin: 0;
+        }
+
+        li {
+          padding: 0.1rem;
+        }
+      }
+    }
+  }
 }

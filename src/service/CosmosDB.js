@@ -14,6 +14,7 @@ const client = new CosmosClient({
 export let vocabDB = {
   getVocab: getVocab,
   queryVocab: queryVocab,
+  getLatestVocab: getLatestVocab,
   upsertVocab: upsertVocab,
 };
 
@@ -36,6 +37,12 @@ async function queryVocab(query) {
 
   const { resources: results } = await container.items.query(query).fetchAll();
 
+  return results;
+}
+
+async function getLatestVocab(){
+  const query = "SELECT * FROM c ORDER BY c.ts DESC";
+  let results = queryVocab(query);
   return results;
 }
 
