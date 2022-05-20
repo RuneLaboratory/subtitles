@@ -23,7 +23,13 @@ async function getVocab(id, vocab) {
   const { container } = await database.containers.createIfNotExists({ id: "vocab" });
 
   const { resources: vocabObjs } = await container.items
-    .query(`SELECT * FROM c WHERE c.id ='${id}' AND c.vocab = '${vocab}'`)
+    .query({
+      query: "SELECT * FROM c WHERE c.id =@id AND c.vocab = @vocab",
+      parameters: [
+        { name: "@id", value: id },
+        { name: "@vocab", value: vocab }
+      ]
+    })
     .fetchAll();
 
   const vocabObj = vocabObjs.length > 0 ? vocabObjs[0] : null;
@@ -40,7 +46,20 @@ async function queryVocab(query) {
   return results;
 }
 
-async function getLatestVocab(){
+async function getLatestVocab() {
+
+  const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
+  const { container } = await database.containers.createIfNotExists({ id: "vocab" });
+
+  const queryIterator = container.items.query(
+    { query: "SELECT * FROM c ORDER BY c.ts DESC" },
+    { enableScanInQuery: true }
+  );
+  const { resources: items, requestCharge } = await queryIterator.fetchNext();
+
+  const itemDef3 = items[0];
+  console.log("Item '" + itemDef3.id + "' found, request charge: " + requestCharge);
+
   const query = "SELECT * FROM c ORDER BY c.ts DESC";
   let results = queryVocab(query);
   return results;
