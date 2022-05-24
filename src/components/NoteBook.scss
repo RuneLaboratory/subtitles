@@ -19,6 +19,7 @@
 
         li {
           padding: 0.1rem;
+
           .form-check-input {
             position: absolute;
             right: 1rem;
@@ -26,5 +27,10 @@
         }
       }
     }
+  }
+
+  #loadmore-btn {
+    margin: 15px 0px;
+    min-width: 200px;
   }
 }

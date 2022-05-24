@@ -14,7 +14,7 @@ const client = new CosmosClient({
 export let vocabDB = {
   getVocab: getVocab,
   queryVocab: queryVocab,
-  getLatestVocab: getLatestVocab,
+  getVocabIterator: getVocabIterator,
   upsertVocab: upsertVocab,
 };
 
@@ -46,23 +46,16 @@ async function queryVocab(query) {
   return results;
 }
 
-async function getLatestVocab() {
+async function getVocabIterator(itemSize) {
 
   const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
   const { container } = await database.containers.createIfNotExists({ id: "vocab" });
 
   const queryIterator = container.items.query(
     { query: "SELECT * FROM c ORDER BY c.ts DESC" },
-    { enableScanInQuery: true }
+    { maxItemCount: itemSize, enableScanInQuery: true }
   );
-  const { resources: items, requestCharge } = await queryIterator.fetchNext();
-
-  const itemDef3 = items[0];
-  console.log("Item '" + itemDef3.id + "' found, request charge: " + requestCharge);
-
-  const query = "SELECT * FROM c ORDER BY c.ts DESC";
-  let results = queryVocab(query);
-  return results;
+  return queryIterator;
 }
 
 async function upsertVocab(vocab) {

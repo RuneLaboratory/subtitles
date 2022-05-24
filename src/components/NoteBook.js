@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useEffect, useRef, useState } from "react";
+import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { vocabDB } from "../service/CosmosDB";
 import "./NoteBook.scss";
 
 export default function Menu(props) {
   const [vocabs, setVocabs] = useState([]);
+  const vocabDBIterator = useRef();
+  const hasMoreResults = useRef(true);
 
   function genSubtitleSample(from) {
     return from.map((f, i) => {
@@ -41,6 +43,8 @@ export default function Menu(props) {
     });
   }
 
+
+
   const vocabCards = vocabs.map((vocab) => {
     return (
       <div key={vocab.id} className="card">
@@ -73,15 +77,30 @@ export default function Menu(props) {
     );
   });
 
+  async function loadMore() {
+    if (!hasMoreResults.current) {
+      return;
+    }
+    let result = await vocabDBIterator.current.fetchNext();
+    hasMoreResults.current = result.hasMoreResults;
+    setVocabs(loadedResult => loadedResult.concat(result.resources));
+  }
+
   useEffect(() => {
-    vocabDB.getLatestVocab().then((results) => {
-      setVocabs(results);
+
+    vocabDB.getVocabIterator(5).then(async (iterator) => {
+      vocabDBIterator.current = iterator;
+      let result = await vocabDBIterator.current.fetchNext();
+      hasMoreResults.current = result.hasMoreResults;
+      setVocabs(result.resources);
     });
+
   }, []);
 
   return (
     <div id="note-book">
       <div className="vocabs">{vocabCards}</div>
+      {hasMoreResults.current && <div id="loadmore-btn"><Button variant="light btn-sm" onClick={loadMore}>Load more <br />&#9660;</Button></div>}
     </div>
   );
 }
