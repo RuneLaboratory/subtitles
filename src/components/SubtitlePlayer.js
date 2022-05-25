@@ -119,7 +119,7 @@ export default function SubtitlePlayer(props) {
         block: "center",
       });
     }
-  }, [playerTime, subtitleIndex, checkRange]);
+  }, [playerTime, subtitleIndex, checkRange, props]);
 
   useEffect(() => {
     if (inputTime && inputTime >= 0) {
