@@ -18,10 +18,17 @@ export let vocabDB = {
   upsertVocab: upsertVocab,
 };
 
-async function getVocab(id, vocab) {
+async function getContainer() {
   const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
-  const { container } = await database.containers.createIfNotExists({ id: "vocab" });
+  const { container } = await database.containers.createIfNotExists(
+    { id: "vocab", partitionKey: "/vocab" },
+    { offerThroughput: 400 }
+  );
+  return container;
+}
 
+async function getVocab(id, vocab) {
+  const container = await getContainer();
   const { resources: vocabObjs } = await container.items
     .query({
       query: "SELECT * FROM c WHERE c.id =@id AND c.vocab = @vocab",
@@ -38,19 +45,13 @@ async function getVocab(id, vocab) {
 }
 
 async function queryVocab(query) {
-  const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
-  const { container } = await database.containers.createIfNotExists({ id: "vocab" });
-
+  const container = await getContainer();
   const { resources: results } = await container.items.query(query).fetchAll();
-
   return results;
 }
 
 async function getVocabIterator(itemSize) {
-
-  const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
-  const { container } = await database.containers.createIfNotExists({ id: "vocab" });
-
+  const container = await getContainer();
   const queryIterator = container.items.query(
     { query: "SELECT * FROM c ORDER BY c.ts DESC" },
     { maxItemCount: itemSize, enableScanInQuery: true }
@@ -59,13 +60,7 @@ async function getVocabIterator(itemSize) {
 }
 
 async function upsertVocab(vocab) {
-  const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
-  const { container } = await database.containers.createIfNotExists(
-    { id: "vocab", partitionKey: "/vocab" },
-    { offerThroughput: 400 }
-  );
-
+  const container = await getContainer();
   const { resource: createdVocab } = await container.items.upsert(vocab);
-
   return createdVocab;
 }
