@@ -69,6 +69,12 @@ export default function SubtitlePlayer(props) {
   }, [isPlaying, enableAutoPlay]);
 
   useEffect(() => {
+
+    if(playerTime > props.subtitle.DurationSec){
+      setIsPlaying(false);
+      return;
+    }
+
     const lis = document.querySelectorAll("#subtitleDisplay li");
     let subtitleIndexToSet = null;
     let nextLi = null;
