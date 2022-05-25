@@ -68,6 +68,10 @@
 
   #subtitleDisplay {
     font-size: 0.9em;
+    @media screen and (min-width: 992px){
+      font-size: 1.2em;
+    }
+    
     height: 100%;
     overflow: scroll;
 
