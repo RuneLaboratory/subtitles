@@ -40,7 +40,9 @@ export default function EpisodeMenu(props) {
 }
 
 async function fetchEpisode(partitionKey, onComplete) {
-  const url = `https://fileaccessapi01.table.core.windows.net/subtitle()?$filter=PartitionKey eq '${partitionKey}'&`;
+  let azureTableUrl = process.env.REACT_APP_AZURE_FILE_TABLE_URL;
+  azureTableUrl += `/subtitle()?$filter=PartitionKey eq '${partitionKey}'&`;
+  
   const sas =
     "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
 
@@ -53,7 +55,7 @@ async function fetchEpisode(partitionKey, onComplete) {
     redirect: "follow",
   };
 
-  const response = await fetch(url + sas, requestOptions);
+  const response = await fetch(azureTableUrl + sas, requestOptions);
   const result = await response.clone().json();
   onComplete(result.value);
 }

@@ -88,7 +88,7 @@ export default function Menu(props) {
 
   useEffect(() => {
 
-    vocabDB.getVocabIterator(5).then(async (iterator) => {
+    vocabDB.getVocabIterator(process.env.REACT_APP_NOTEBOOK_VOCAB_PAGE_SIZE).then(async (iterator) => {
       vocabDBIterator.current = iterator;
       let result = await vocabDBIterator.current.fetchNext();
       hasMoreResults.current = result.hasMoreResults;

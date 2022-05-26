@@ -13,8 +13,11 @@ export async function translate(vocab) {
     redirect: "follow",
   };
 
+  let translatorUrl = process.env.REACT_APP_AZURE_TRANSLATOR_ENDPOINT;
+  translatorUrl += "/dictionary/lookup?api-version=3.0&from=en&to=zh-Hans";
+
   const response = await fetch(
-    "https://api.cognitive.microsofttranslator.com/dictionary/lookup?api-version=3.0&from=en&to=zh-Hans",
+    translatorUrl,
     requestOptions
   );
 

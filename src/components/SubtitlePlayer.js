@@ -70,7 +70,7 @@ export default function SubtitlePlayer(props) {
 
   useEffect(() => {
 
-    if(playerTime > props.subtitle.DurationSec){
+    if (playerTime > props.subtitle.DurationSec) {
       setIsPlaying(false);
       return;
     }
@@ -415,7 +415,8 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
 }
 
 async function fetchSubtitleFile(path) {
-  const url = `https://fileaccessapi01.blob.core.windows.net/subtitle/${path}`;
+  let azureBlobUrl = process.env.REACT_APP_AZURE_FILE_BLOB_URL;
+  azureBlobUrl = (azureBlobUrl.slice(-1) !== '/') ? azureBlobUrl + '/' + path : azureBlobUrl + path;
   const sas =
     "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
 
@@ -428,7 +429,7 @@ async function fetchSubtitleFile(path) {
     redirect: "follow",
   };
 
-  const response = await fetch(url + "?" + sas, requestOptions);
+  const response = await fetch(azureBlobUrl + "?" + sas, requestOptions);
   const data = await response.text();
 
   const parser = new DOMParser();
