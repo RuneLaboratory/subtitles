@@ -70,7 +70,6 @@ export default function SubtitlePlayer(props) {
   }, [isPlaying, enableAutoPlay]);
 
   useEffect(() => {
-
     if (playerTime > props.subtitle.DurationSec) {
       setIsPlaying(false);
       return;
@@ -134,59 +133,62 @@ export default function SubtitlePlayer(props) {
     const selection = window.getSelection();
     let vocab = selection.toString()?.trim();
 
-    const curElementEN = selection.anchorNode.parentElement.parentElement;
-    if (curElementEN.dataset.lang === "CN") {
+    const curElementEN = selection.anchorNode?.parentElement?.parentElement;
+    if (curElementEN && curElementEN.dataset.lang === "CN" && !curElementEN.textContent.includes(vocab)) {
       return;
     }
 
     if (vocab.length > 1 && vocab.length < 35) {
       const definitionCN = await translate(vocab);
-      setSelectedSelection({ selection: selection, vocab: vocab + " : " + definitionCN });
+
+      const curElementEN = selection.anchorNode.parentElement.parentElement;
+      let curElementCN;
+      let preElementEN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
+      let preElementCN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
+      let nextElementEN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
+      let nextElementCN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
+
+      let pElement = curElementEN.previousSibling;
+      while (!preElementEN) {
+        pElement.dataset.lang === "EN" ? (preElementEN = pElement) : (pElement = pElement.previousSibling);
+      }
+      pElement = curElementEN.previousSibling;
+      while (!preElementCN) {
+        pElement.dataset.lang === "CN" ? (preElementCN = pElement) : (pElement = pElement.previousSibling);
+      }
+      pElement = curElementEN.nextSibling;
+      while (!curElementCN) {
+        pElement.dataset.lang === "CN" ? (curElementCN = pElement) : (pElement = pElement.nextSibling);
+      }
+      pElement = curElementEN.nextSibling;
+      while (!nextElementEN) {
+        pElement.dataset.lang === "EN" ? (nextElementEN = pElement) : (pElement = pElement.nextSibling);
+      }
+      pElement = nextElementEN.nextSibling;
+      while (!nextElementCN) {
+        pElement.dataset.lang === "CN" ? (nextElementCN = pElement) : (pElement = pElement.nextSibling);
+      }
+
+      const subtitleElements = {
+        subtitleEN_B: preElementEN.textContent,
+        subtitleCN_B: preElementCN.textContent,
+        subtitleEN_C: curElementEN.textContent,
+        subtitleCN_C: curElementCN.textContent,
+        subtitleEN_A: nextElementEN.textContent,
+        subtitleCN_A: nextElementCN.textContent,
+      };
+      if (subtitleElements.subtitleEN_C.includes(vocab)) {
+        setSelectedSelection({ subtitleElements: subtitleElements, vocab: vocab, definition: definitionCN });
+      }
     }
   }
 
   async function saveVocab() {
-    const selection = selectedSelection?.selection;
-    let vocab = selection?.toString()?.trim();
+    let vocab = selectedSelection.vocab;
 
     if (!vocab) return;
 
-    const curElementEN = selection.anchorNode.parentElement.parentElement;
-    let curElementCN;
-    let preElementEN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
-    let preElementCN = curElementEN.previousSibling.hasAttribute("id") ? null : document.createElement("li");
-    let nextElementEN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
-    let nextElementCN = curElementEN.nextSibling.hasAttribute("id") ? null : document.createElement("li");
-
-    let pElement = curElementEN.previousSibling;
-    while (!preElementEN) {
-      pElement.dataset.lang === "EN" ? (preElementEN = pElement) : (pElement = pElement.previousSibling);
-    }
-    pElement = curElementEN.previousSibling;
-    while (!preElementCN) {
-      pElement.dataset.lang === "CN" ? (preElementCN = pElement) : (pElement = pElement.previousSibling);
-    }
-    pElement = curElementEN.nextSibling;
-    while (!curElementCN) {
-      pElement.dataset.lang === "CN" ? (curElementCN = pElement) : (pElement = pElement.nextSibling);
-    }
-    pElement = curElementEN.nextSibling;
-    while (!nextElementEN) {
-      pElement.dataset.lang === "EN" ? (nextElementEN = pElement) : (pElement = pElement.nextSibling);
-    }
-    pElement = nextElementEN.nextSibling;
-    while (!nextElementCN) {
-      pElement.dataset.lang === "CN" ? (nextElementCN = pElement) : (pElement = pElement.nextSibling);
-    }
-
-    const subtitleElements = {
-      subtitleEN_B: preElementEN.textContent,
-      subtitleCN_B: preElementCN.textContent,
-      subtitleEN_C: curElementEN.textContent,
-      subtitleCN_C: curElementCN.textContent,
-      subtitleEN_A: nextElementEN.textContent,
-      subtitleCN_A: nextElementCN.textContent,
-    };
+    const subtitleElements = selectedSelection.subtitleElements;
 
     let existingVocab = await vocabDB.getVocab(vocab, vocab);
 
@@ -194,7 +196,7 @@ export default function SubtitlePlayer(props) {
       (f) => f.mediaName === props.subtitle.PartitionKey && f.episode === props.subtitle.RowKey
     );
     let mediaMatch = existingVocab?.from[mediaMatchIndex];
-    let subtitleMatch = mediaMatch?.subtitle.find((s) => s.subtitleEN_C === curElementEN.textContent);
+    let subtitleMatch = mediaMatch?.subtitle.find((s) => s.subtitleEN_C === subtitleElements.subtitleEN_C);
 
     let vocabObj = existingVocab;
     if (subtitleMatch) {
@@ -262,7 +264,9 @@ export default function SubtitlePlayer(props) {
               <button id="save-btn" className="btn btn-primary btn-sm float-end" onClick={saveVocab}>
                 Save
               </button>
-              <span className="selected-vocab float-end">{selectedSelection?.vocab}</span>
+              <span className="selected-vocab float-end">
+                {selectedSelection && selectedSelection.vocab + ": " + selectedSelection.definition}
+              </span>
             </p>
             <div>
               {!isPlaying ? (
@@ -417,7 +421,7 @@ function generateSubtitleElement(xmlDocEN, xmlDocCN) {
 
 async function fetchSubtitleFile(path) {
   let azureBlobUrl = process.env.REACT_APP_AZURE_FILE_BLOB_URL;
-  azureBlobUrl = (azureBlobUrl.slice(-1) !== '/') ? azureBlobUrl + '/' + path : azureBlobUrl + path;
+  azureBlobUrl = azureBlobUrl.slice(-1) !== "/" ? azureBlobUrl + "/" + path : azureBlobUrl + path;
   const sas = azureFunc.getSecret().sas;
 
   const headers = new Headers();
