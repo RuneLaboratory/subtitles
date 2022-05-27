@@ -62,8 +62,17 @@
     }
 
     .selected-vocab {
-      padding: 0.25rem 1rem;
+      padding: 0.4rem 1rem;
       font-size: 0.8em;
+      background: antiquewhite;
+      position: relative;
+      min-height: 27px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+
+    #save-btn{
+      margin-bottom: 5px;
+      margin-left: 5px;
     }
   }
 
