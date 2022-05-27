@@ -32,7 +32,8 @@ export default function NavBar(props) {
 
   return (
     <Navbar id="nav-bar" expand="lg" bg="dark">
-      {AzureFunc.getSecret && (backButton || pageBtn)}
+      {AzureFunc.getSecret() && backButton}
+      {AzureFunc.getSecret() && pageBtn}
     </Navbar >
   );
 }

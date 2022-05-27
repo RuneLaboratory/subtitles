@@ -1,14 +1,8 @@
+import AzureFunc from "../service/AzureFunc";
+
 const cosmos = require("@azure/cosmos");
 const CosmosClient = cosmos.CosmosClient;
-
-const masterKey = "LIFBUB1585OT0EvjaxbHWhMq6Rb21HNVY9RUkesxAl91SFLw4mGmKvD60M4z804LoJPU5Z59LEqFcijIltHsFw==";
-const client = new CosmosClient({
-  endpoint : process.env.REACT_APP_AZURE_COSMOSDB_ENDPOINT,
-  key: masterKey,
-  connectionPolicy: {
-    enableEndpointDiscovery: false,
-  },
-});
+let client;
 
 export let vocabDB = {
   getVocab: getVocab,
@@ -18,6 +12,14 @@ export let vocabDB = {
 };
 
 async function getContainer() {
+  if (!client) {
+    client = new CosmosClient({
+      endpoint: process.env.REACT_APP_AZURE_COSMOSDB_ENDPOINT,
+      key: AzureFunc.getSecret().cosmosMasterKey,
+      connectionPolicy: { enableEndpointDiscovery: false },
+    });
+  }
+
   const { database } = await client.databases.createIfNotExists({ id: "ToDoList" });
   const { container } = await database.containers.createIfNotExists(
     { id: "vocab", partitionKey: "/vocab" },

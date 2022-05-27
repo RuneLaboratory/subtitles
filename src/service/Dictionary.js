@@ -1,6 +1,8 @@
+import azureFunc from "../service/AzureFunc";
+
 export async function translate(vocab) {
   const headers = new Headers();
-  headers.append("Ocp-Apim-Subscription-Key", "f9524b9e18834246937b94b75baf1a6c");
+  headers.append("Ocp-Apim-Subscription-Key", azureFunc.getSecret().translatorKey);
   headers.append("Content-Type", "application/json; charset=UTF-8");
   headers.append("Ocp-Apim-Subscription-Region", "southeastasia");
 
