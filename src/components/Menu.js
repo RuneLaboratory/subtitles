@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import azureFunc from "../service/AzureFunc";
 import "./Menu.scss";
 
 export default function Menu(props) {
@@ -63,9 +64,8 @@ export default function Menu(props) {
 async function fetchSubtitles(onComplete) {
   let azureTableUrl = process.env.REACT_APP_AZURE_FILE_TABLE_URL;
   azureTableUrl += "/subtitleKey";
-  const sas =
-    "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
-
+  const sas = azureFunc.getSecret().sas;
+  
   const headers = new Headers();
   headers.append("Accept", "application/json;odata=nometadata");
 

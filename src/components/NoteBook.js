@@ -44,7 +44,6 @@ export default function Menu(props) {
   }
 
 
-
   const vocabCards = vocabs.map((vocab) => {
     return (
       <div key={vocab.id} className="card">

@@ -1,4 +1,5 @@
 import { Button, Navbar } from "react-bootstrap";
+import AzureFunc from "../service/AzureFunc";
 import "./NavBar.scss";
 
 export default function NavBar(props) {
@@ -31,8 +32,7 @@ export default function NavBar(props) {
 
   return (
     <Navbar id="nav-bar" expand="lg" bg="dark">
-      {backButton}
-      {pageBtn}
+      {AzureFunc.getSecret && (backButton || pageBtn)}
     </Navbar >
   );
 }

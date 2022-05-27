@@ -6,10 +6,12 @@ import NavBar from "./components/NavBar";
 import Menu from "./components/Menu";
 import EpisodeMenu from "./components/EpisodeMenu";
 import NoteBook from "./components/NoteBook";
+import Login from "./components/Login";
 import { useState } from "react";
 
 function App() {
   const Page = {
+    Login: "Login",
     MediaMenu: "MediaMenu",
     MediaEpisode: "MediaEpisode",
     SubtitlePlayer: "SubtitlePlayer",
@@ -17,7 +19,7 @@ function App() {
   };
   const [title, setTitle] = useState();
   const [subtitle, setSubtitle] = useState();
-  const [curPage, setCurPage] = useState(Page.MediaMenu);
+  const [curPage, setCurPage] = useState(Page.Login);
 
   function onSetTitle(title) {
     setTitle(title);
@@ -41,7 +43,7 @@ function App() {
   }
 
   function onSetPage(curPage) {
-    if(curPage === Page.MediaMenu){
+    if (curPage === Page.MediaMenu) {
       setTitle(null);
     }
     setCurPage(curPage);
@@ -55,6 +57,8 @@ function App() {
           <NavBar title={title} onBack={onBack} onSetPage={onSetPage} curPage={curPage}></NavBar>
           {(() => {
             switch (curPage) {
+              case Page.Login:
+                return <Login onSetPage={onSetPage} />;
               case Page.MediaMenu:
                 return <Menu key={title} title={title} onSetTitle={onSetTitle} />;
               case Page.MediaEpisode:

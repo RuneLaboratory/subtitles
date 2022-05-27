@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import azureFunc from "../service/AzureFunc";
 
 export default function EpisodeMenu(props) {
   const [episodes, setEpisodes] = useState([]);
@@ -43,8 +44,7 @@ async function fetchEpisode(partitionKey, onComplete) {
   let azureTableUrl = process.env.REACT_APP_AZURE_FILE_TABLE_URL;
   azureTableUrl += `/subtitle()?$filter=PartitionKey eq '${partitionKey}'&`;
   
-  const sas =
-    "sv=2020-08-04&ss=bt&srt=so&sp=rwlacuitf&se=2023-04-23T21:53:18Z&st=2022-04-23T13:53:18Z&spr=https&sig=TwLbIptzacZMOyIMIbtfhl8kLvSwfyxoRbZZ%2FmS32zY%3D";
+  const sas = azureFunc.getSecret().sas;
 
   const headers = new Headers();
   headers.append("Accept", "application/json;odata=nometadata");
