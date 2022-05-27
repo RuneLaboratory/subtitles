@@ -59,25 +59,31 @@
       min-width: 150px;
       width: 30%;
       margin: auto;
-    }
-
-    .selected-vocab {
-      padding: 0.4rem 1rem;
-      font-size: 0.8em;
-      background: antiquewhite;
       position: relative;
-      min-height: 27px;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }
 
-    #save-btn{
-      margin-bottom: 5px;
-      margin-left: 5px;
+    .saveBtn {
+      max-height:36px;
+
+      .selected-vocab {
+        padding: 0.35rem 1rem;
+        font-size: 0.8em;
+        background: antiquewhite;
+        position: relative;
+        min-height: 27px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+      }
+
+      #save-btn {
+        margin-bottom: 5px;
+        margin-left: 5px;
+      }
     }
   }
 
   #subtitleDisplay {
     font-size: 0.9em;
+
     @media screen and (min-width: 992px) {
       font-size: 1.2em;
     }
