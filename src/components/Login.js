@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import azureFunc from "../service/AzureFunc";
+import "./Login.scss";
 
 export default function Login(props) {
     const [username, setUsername] = useState("");
@@ -19,7 +20,7 @@ export default function Login(props) {
     }
 
     return (
-        <div className="Login">
+        <div className="login">
             <Form onSubmit={handleSubmit}>
                 <Form.Group size="lg" controlId="username">
                     <Form.Label>Username</Form.Label>
